@@ -45,7 +45,7 @@ namespace InsanePlugin
 
     public class FlairModule : PluginModuleBase
     {
-        private RemoteJsonFile _flairs = new RemoteJsonFile("https://raw.githubusercontent.com/fixfactory/bo2-official-overlays/main/Data/Flairs.json");
+        private RemoteJsonFile _flairs = new RemoteJsonFile("https://raw.githubusercontent.com/InsaneRocha/InsanePlugin/refs/heads/main/Data/Flairs.json");
         private FlairLookup _flairLookup = null;
 
         public override int UpdatePriority => 20;

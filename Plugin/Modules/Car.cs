@@ -15,9 +15,9 @@ namespace InsanePlugin
         private DateTime _lastUpdateTime = DateTime.MinValue;
         private TimeSpan _updateInterval = TimeSpan.FromMilliseconds(500);
 
-        private RemoteJsonFile _carInfo = new RemoteJsonFile("https://raw.githubusercontent.com/fixfactory/bo2-official-overlays/main/Data/CarInfo.json");
-        private RemoteJsonFile _carBrandInfo = new RemoteJsonFile("https://raw.githubusercontent.com/fixfactory/bo2-official-overlays/main/Data/CarBrandInfo.json");
-        private RemoteJsonFile _carClassInfo = new RemoteJsonFile("https://raw.githubusercontent.com/fixfactory/bo2-official-overlays/main/Data/CarClassInfo.json");
+        private RemoteJsonFile _carInfo = new RemoteJsonFile("https://raw.githubusercontent.com/InsaneRocha/InsanePlugin/refs/heads/main/Data/CarInfo.json");
+        private RemoteJsonFile _carBrandInfo = new RemoteJsonFile("https://raw.githubusercontent.com/InsaneRocha/InsanePlugin/refs/heads/main/Data/CarBrandInfo.json");
+        private RemoteJsonFile _carClassInfo = new RemoteJsonFile("https://raw.githubusercontent.com/InsaneRocha/InsanePlugin/refs/heads/main/Data/CarClassInfo.json");
 
         private string _lastCarId = string.Empty;
 

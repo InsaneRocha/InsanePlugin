@@ -284,7 +284,6 @@ namespace InsanePlugin
                         else
                         {
                             // There's an issue with AI races where iRacing does not provide a class name, and SimHub fails to create the classes.
-                            // https://github.com/fixfactory/bo2-official-overlays/issues/33
                             carClass.Name = "All Cars";
                             carClass.Color = "#FFFFFF";
                             carClass.TextColor = "#000000";

@@ -11,7 +11,7 @@ namespace InsanePlugin
 {
     public class TrackModule : PluginModuleBase
     {
-        private RemoteJsonFile _trackInfo = new RemoteJsonFile("https://raw.githubusercontent.com/fixfactory/bo2-official-overlays/main/Data/TrackInfo.json");
+        private RemoteJsonFile _trackInfo = new RemoteJsonFile("https://raw.githubusercontent.com/InsaneRocha/InsanePlugin/refs/heads/main/Data/TrackInfo.json");
         private string _lastTrackId = string.Empty;
 
         public int PushToPassCooldown { get; set; } = 0;
