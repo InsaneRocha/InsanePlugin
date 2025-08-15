@@ -1,0 +1,40 @@
+{
+    "nurburgring nordschleife": {
+        "qualStartTrackPct": 0.93,
+        "raceStartTrackPct": 0.93
+    },
+    "nurburgring combinedshorta": {
+        "qualStartTrackPct": 0.93,
+        "raceStartTrackPct": 0.87
+    },
+    "nurburgring combined": {
+        "qualStartTrackPct": 0.93,
+        "raceStartTrackPct": 0.88
+    },
+    "nurburgring combinedshortb": {
+        "qualStartTrackPct": 0.93,
+        "raceStartTrackPct": 0.87
+    },
+    "nurburgring combinedlong": {
+        "qualStartTrackPct": 0.93,
+        "raceStartTrackPct": 0.88
+    },
+    "lemans full": {
+        "qualStartTrackPct": 0.94,
+        "raceStartTrackPct": 0.79
+    },
+    "lemans nochicane": {
+        "qualStartTrackPct": 0.94,
+        "raceStartTrackPct": 0.78
+    },
+    "talladega": {
+        "qualStartTrackPct": 0.00,
+        "raceStartTrackPct": 0.49
+    },
+    "twinring fullrc": {
+        "pushToPassCooldown_SF23" : 120
+    },
+    "fuji gp": {
+        "pushToPassCooldown_SF23" : 120
+    }
+}

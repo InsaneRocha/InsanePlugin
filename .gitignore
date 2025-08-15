@@ -1,0 +1,18 @@
+# Ignore any folder or sub-folder named "_Backups"
+**/_Backups/
+
+# Ignore folders
+Bin/
+Plugin/bin/
+Plugin/obj/
+PLugin/.vs/
+
+# Ignore all VS Code workspace files
+*.code-workspace
+
+# Ignore VS user file
+Plugin/benofficial2.Plugin.csproj.user
+
+# Ignore all .env, .pfx files, including in subdirectories
+**/*.env
+**/*.pfx

@@ -1,0 +1,37 @@
+{
+  "car_classes": 
+  {
+    "GT4 Class": 
+    {
+        "name": "GT4"
+    },
+    "GT3 Class": 
+    {
+        "name": "GT3"
+    },
+    "GTE Class": 
+    {
+        "name": "GTE"
+    },
+    "Ligier JS P320": 
+    {
+        "name": "LMP3"
+    },
+    "IMSA23": 
+    {
+        "name": "GT3"
+    },
+    "Dallara P217": 
+    {
+        "name": "LMP2"
+    },
+    "L Gen 4 Cup": 
+    {
+        "name": "Gen 4 Cup"
+    },
+    "SBRS": 
+    {
+        "name": "SB F2000"
+    }
+  }
+}

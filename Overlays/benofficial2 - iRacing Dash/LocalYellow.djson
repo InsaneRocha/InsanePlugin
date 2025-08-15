@@ -1,0 +1,191 @@
+{
+  "$id": "1",
+  "Version": 2,
+  "Id": "625d16e3-5ddf-4fd3-9586-e7c2800b3a41",
+  "BaseHeight": 175,
+  "BaseWidth": 275,
+  "BackgroundColor": "#FF000000",
+  "Screens": {
+    "$id": "2",
+    "$values": [
+      {
+        "$id": "3",
+        "RenderingSkip": 0,
+        "IsFreezed": false,
+        "InGameScreen": true,
+        "IdleScreen": false,
+        "PitScreen": false,
+        "ScreenScript": {
+          "$id": "4",
+          "Interpreter": 1
+        },
+        "BackgroundColor": "#FF000000",
+        "IsSelected": true,
+        "Items": {
+          "$id": "5",
+          "$values": [
+            {
+              "$id": "6",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+              "IsRectangleItem": true,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#00FFFFFF",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "7",
+                "AllBorders": 5,
+                "AllCornerRadius": 0,
+                "BorderColor": "#FFFFFF00",
+                "BorderTop": 5,
+                "BorderBottom": 5,
+                "BorderLeft": 5,
+                "BorderRight": 5,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "8"
+                }
+              },
+              "Height": 175.0,
+              "Left": 0.0,
+              "Opacity": 100.0,
+              "Top": 0.0,
+              "Visible": true,
+              "Width": 275.0,
+              "BorderBottom": 5,
+              "BorderColor": "#FFFFFF00",
+              "BorderLeft": 5,
+              "BorderRight": 5,
+              "BorderTop": 5,
+              "Id": "72261992-ad16-402a-8087-492bfe06caad",
+              "IsFreezed": false,
+              "IsSelected": false,
+              "Name": "RectangleItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "9"
+              }
+            },
+            {
+              "$id": "10",
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.TextItem, SimHub.Plugins",
+              "IsTextItem": true,
+              "ShadowDepth": 0,
+              "ShadowBlur": 0,
+              "ShadowDirection": 315,
+              "ShadowColor": "#FF808080",
+              "Font": "Helvetica Neue LT Std",
+              "FontWeight": "Medium",
+              "TextWrapping": 0,
+              "FontStyle": "Normal",
+              "FontSize": 50.0,
+              "Text": "YELLOW FLAG",
+              "TextColor": "#FF000000",
+              "HorizontalAlignment": 1,
+              "VerticalAlignment": 1,
+              "Rotation": 0.0,
+              "UseRotation": false,
+              "CanResize": true,
+              "BackgroundColor": "#FFFFFF00",
+              "BlurRadius": 0.0,
+              "EnableBlur": false,
+              "BorderStyle": {
+                "$id": "11",
+                "AllBorders": 0,
+                "AllCornerRadius": 0,
+                "BorderColor": "#FFFFFFFF",
+                "BorderTop": 0,
+                "BorderBottom": 0,
+                "BorderLeft": 0,
+                "BorderRight": 0,
+                "CornerRadius": "0,0,0,0",
+                "RadiusTopLeft": 0,
+                "RadiusTopRight": 0,
+                "RadiusBottomLeft": 0,
+                "RadiusBottomRight": 0,
+                "Bindings": {
+                  "$id": "12"
+                }
+              },
+              "Height": 155.0,
+              "Left": 10.0,
+              "Opacity": 100.0,
+              "Top": 10.0,
+              "Visible": true,
+              "Width": 255.0,
+              "BorderBottom": 0,
+              "BorderColor": "#FFFFFFFF",
+              "BorderLeft": 0,
+              "BorderRight": 0,
+              "BorderTop": 0,
+              "Id": "9d4709ae-d3b4-4a0e-977c-c10516fc45c9",
+              "IsFreezed": false,
+              "IsSelected": true,
+              "Name": "TextItem0",
+              "RenderingSkip": 0,
+              "Sid": 0,
+              "Bindings": {
+                "$id": "13"
+              }
+            }
+          ]
+        },
+        "Id": "72021b89-77e8-4726-bbdf-f73009e0bf6d",
+        "Name": "Screen1",
+        "Sid": 0,
+        "Bindings": {
+          "$id": "14"
+        }
+      }
+    ]
+  },
+  "SnapToGrid": true,
+  "HideLabels": false,
+  "ShowBoundingRectangles": false,
+  "GridSize": 5,
+  "SelectedScreen": {
+    "$ref": "3"
+  },
+  "Images": {
+    "$id": "15",
+    "$values": []
+  },
+  "Metadata": {
+    "$id": "16",
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": {
+      "$id": "17",
+      "$values": [
+        0
+      ]
+    },
+    "IdleScreensIndexs": {
+      "$id": "18",
+      "$values": []
+    },
+    "MainPreviewIndex": 0,
+    "IsOverlay": false,
+    "ShowInTaskBar": true,
+    "Width": 275.0,
+    "Height": 175.0,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": true,
+    "PitScreensIndexs": {
+      "$id": "19",
+      "$values": []
+    }
+  },
+  "ShowOnScreenControls": true,
+  "ShowInTaskBar": true,
+  "IsOverlay": false,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": true
+}

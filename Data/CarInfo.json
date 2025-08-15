@@ -1,0 +1,309 @@
+{
+    "mclaren720sgt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "chevyvettez06rgt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "fordmustanggt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "audir8lmsevo2gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "ferrari296gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "porsche992rgt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "mercedesamggt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "bmwm4gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "mclarenmp4": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "porsche911rgt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "ferrari488gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "audir8gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "bmwz4gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "acuransxevo22gt3": {
+        "isGT3": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "bmwm4gt4": {
+        "isGT4": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "bmwm4evogt4": {
+        "isGT4": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "mercedesamggt4": {
+        "isGT4": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "amvantagegt4": {
+        "isGT4": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "porsche718gt4": {
+        "isGT4": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "mclaren570sgt4": {
+        "isGT4": true,
+        "hasTC": true,
+        "hasABS": true
+    },
+    "bmwm8gte": {
+        "isGTE": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasFuelMix": true
+    },
+    "porsche991rsr": {
+        "isGTE": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasFuelMix": true
+    },
+    "ferrari488gte": {
+        "isGTE": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasFuelMix": true,
+        "hasThrottleShaping": true
+    },
+    "c8rvettegte": {
+        "isGTE": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasFuelMix": true
+    },
+    "fordgt2017": {
+        "isGTE": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasFuelMix": true
+    },
+    "cadillacvseriesrgtp": {
+        "isGTP": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasBrakeBiasMigration": true
+    },
+    "acuraarx06gtp": {
+        "isGTP": true,
+        "hasTC": true,
+        "hasTC2": true
+    },
+    "porsche963gtp": {
+        "isGTP": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasBrakeBiasMigration": true
+    },
+    "ferrari499p": {
+        "isGTP": true,
+        "hasTC": true,
+        "hasTC2": true,
+        "hasBrakeBiasMigration": true,
+        "hasErs": true,
+        "hasDeployMode": true,
+        "hasDeployModeType2": true
+    },
+    "dallarair18": {
+        "hasPushToPass": true,
+        "hasPushToPassCount": true,
+        "hasFuelMix": true,
+        "hasFrontARB": true,
+        "hasRearARB": true,
+        "hasWeightJacker": true,
+        "hasDryTireCompounds": true
+    },
+    "dallaradw12": {
+        "hasPushToPass": true,
+        "hasPushToPassCount": true,
+        "hasFuelMix": true,
+        "hasFrontARB": true,
+        "hasRearARB": true,
+        "hasWeightJacker": true
+    },
+    "superformulasf23 toyota": {
+        "hasPushToPass": true,
+        "hasPushToPassTimer": true,
+        "hasPushToPassCooldown": true,
+        "hasThrottleShaping": true
+    },
+    "superformulasf23 honda": {
+        "hasPushToPass": true,
+        "hasPushToPassTimer": true,
+        "hasPushToPassCooldown": true,
+        "hasThrottleShaping": true
+    },
+    "mclarenmp430": {
+        "hasDrsDetection": true,
+        "hasErs": true,
+        "hasDeployMode": true,
+        "hasDeployModeType1": true,
+        "hasEntryDiff": true,
+        "hasEntryDiffPreload": true,
+        "hasTwoPartBrakeBias": true,
+        "hasTwoPartPeakBrakeBias": true
+    },
+    "mercedesw12": {
+        "hasDrsDetection": true,
+        "hasErs": true,
+        "hasDeployMode": true,
+        "hasDeployModeType2": true,
+        "hasEntryDiff": true,
+        "hasExitDiff": true,
+        "hasFineBrakeBias": true,
+        "hasBrakeBiasMigration": true,
+        "hasDryTireCompounds": true
+    },
+    "mercedesw13": {
+        "hasDrsDetection": true,
+        "hasErs": true,
+        "hasDeployMode": true,
+        "hasDeployModeType2": true,
+        "hasEntryDiff": true,
+        "hasExitDiff": true,
+        "hasFineBrakeBias": true,
+        "hasBrakeBiasMigration": true,
+        "hasDryTireCompounds": true
+    },
+    "formularenault35": {
+        "hasDrsCount": true,
+        "hasThrottleShaping": true
+    },
+    "radicalsr10": {
+        "hasBoost": true,
+        "hasThrottleShaping": true
+    },
+    "williamsfw31": {
+        "hasEnginePowerMode": true,
+        "hasFuelMix": true,
+        "hasEntryDiff": true,
+        "hasExitDiff": true
+    },
+    "dallarap217": {
+        "isLMP2": true,
+        "hasThrottleShaping": true
+    },
+    "dallarair01": {
+        "hasThrottleShaping": true,
+        "hasARBModeP": true,
+        "hasFrontARB": true,
+        "hasRearARB": true,
+        "hasDryTireCompounds": true
+    },
+    "ligierjsp320": {
+        "isLMP3": true,
+        "hasThrottleShaping": true,
+        "hasTC": true
+    },
+    "toyotagr86": {
+        "hasTC": true,
+        "hasABS": true
+    },
+    "trucks toyotatundra2022": {
+        "hasTwoPartBrakeBias": true
+    },
+    "trucks silverado2019": {
+        "hasTwoPartBrakeBias": true
+    },
+    "trucks fordf150": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 chevy gen4cup": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 chevy": {
+        "hasTwoPartBrakeBias": true
+    },
+    "hondacivictyper": {
+        "hasABS": true
+    },
+    "audirs3lms": {
+        "hasABS": true
+    },
+    "hyundaivelostern": {
+        "hasABS": true
+    },
+    "stockcars toyotacamry": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars fordmustang2019": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars camarozl12018": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 supra2019": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 camaro2019": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 mustang2019": {
+        "hasTwoPartBrakeBias": true
+    },
+    "hpdarx01c": {
+        "hasTC": true,
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 arcatoyota25": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 arcaford25": {
+        "hasTwoPartBrakeBias": true
+    },
+    "stockcars2 arcachevy25": {
+        "hasTwoPartBrakeBias": true
+    }
+}

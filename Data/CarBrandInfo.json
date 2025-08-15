@@ -1,0 +1,125 @@
+{
+  "car_brands": 
+  {
+    "Toyota": 
+    {
+        "tokens": ["toyota", "corolla", "camry", "supra", "superformulalights"]
+    },
+    "Honda": 
+    {
+        "tokens": ["honda", "civic", "accord"]
+    },
+    "Acura": 
+    {
+        "tokens": ["acura"]
+    },
+    "Ford": 
+    {
+        "tokens": ["ford", "mustang"]
+    },
+    "Chevrolet": 
+    {
+        "tokens": ["chevrolet", "chevy", "silverado", "camaro", "vette", "c6r", "cruze", "impala"]
+    },
+    "BMW": 
+    {
+        "tokens": ["bmw"]
+    },
+    "Mercedes": 
+    {
+        "tokens": ["mercedes", "amg"]
+    },
+    "Audi": 
+    {
+        "tokens": ["audi"]
+    },
+    "Nissan": 
+    {
+        "tokens": ["nissan", "altima", "sentra"]
+    },
+    "Hyundai": 
+    {
+        "tokens": ["hyundai", "elantra", "sonata"]
+    },
+    "Mclaren": 
+    {
+        "tokens": ["mclaren"]
+    },
+    "Ferrari": 
+    {
+        "tokens": ["ferrari"]
+    },
+    "Porsche": 
+    {
+        "tokens": ["porsche"]
+    },
+    "Aston": 
+    {
+        "tokens": ["aston", "martin", "vantage"]
+    },
+    "Cadillac": 
+    {
+        "tokens": ["cadillac"]
+    },
+    "Dallara": 
+    {
+        "tokens": ["dallara"]
+    },
+    "Renault": 
+    {
+        "tokens": ["renault", "fr500"]
+    },
+    "Radical": 
+    {
+        "tokens": ["radical"]
+    },
+    "Williams": 
+    {
+        "tokens": ["williams"]
+    },
+    "Ligier": 
+    {
+        "tokens": ["ligier"]
+    },
+    "Lotus": 
+    {
+        "tokens": ["lotus"]
+    },
+    "Pontiac": 
+    {
+        "tokens": ["pontiac", "solstice"]
+    },
+    "Holden": 
+    {
+        "tokens": ["holden"]
+    },
+    "Kia": 
+    {
+        "tokens": ["kia", "optima"]
+    },
+    "Volkswagen": 
+    {
+        "tokens": ["volks", "vw", "jetta", "beetle"]
+    },
+    "Mazda": 
+    {
+        "tokens": ["mazda", "mx5"]
+    },
+    "Subaru": 
+    {
+        "tokens": ["subaru", "wrx"]
+    },
+    "Lamborghini": 
+    {
+        "tokens": ["lambo"]
+    },
+    "Buick": 
+    {
+        "tokens": ["buick"]
+    },
+    "SkipBarber": 
+    {
+        "tokens": ["rt2000"]
+    }
+  }
+}
