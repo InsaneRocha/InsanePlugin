@@ -107,11 +107,9 @@
     <Compile Include="ModuleSetting.cs" />
     <Compile Include="Modules\BlindSpotMonitor.cs" />
     <Compile Include="Modules\Car.cs" />
-    <Compile Include="Modules\Dash.cs" />
     <Compile Include="Modules\Delta.cs" />
     <Compile Include="Modules\Driver.cs" />
     <Compile Include="Modules\Flair.cs" />
-    <Compile Include="Modules\General.cs" />
     <Compile Include="Modules\Precipitation.cs" />
     <Compile Include="Modules\RejoinHelper.cs" />
     <Compile Include="Modules\Relative.cs" />
@@ -120,8 +118,6 @@
     <Compile Include="Modules\Standings.cs" />
     <Compile Include="Modules\Input.cs" />
     <Compile Include="Modules\Track.cs" />
-    <Compile Include="Modules\TrackMap.cs" />
-    <Compile Include="Modules\TrackWetness.cs" />
     <Compile Include="PluginModuleFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -6,16 +6,6 @@
                 <ColumnDefinition Width="377*"/>
             </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Top" Grid.ColumnSpan="2">
-                <styles:SHSection Title="GENERAL PLUGIN OPTIONS" ShowSeparator="True">
-                    <StackPanel>
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Display the clock time in a 24-hour format. Ex: 14:30 instead of 2:30 PM" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[GeneralModule].Settings.ClockFormat24h, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            24-hour clock format
-                        </styles:SHToggleCheckbox>
-                    </StackPanel>
-                </styles:SHSection>
 
                 <styles:SHSection Title="STANDINGS OVERLAY OPTIONS" ShowSeparator="True">
                     <StackPanel HorizontalAlignment="Left">
@@ -305,27 +295,6 @@
                     </StackPanel>
                 </styles:SHSection>
 
-                <styles:SHSection Title="TRACK MAP OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Hide the track map when the replay is playing (i.e. when out of the car)" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[TrackMapModule].Settings.HideInReplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Hide in replay
-                        </styles:SHToggleCheckbox>
-                        
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Dot Radius (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[TrackMapModule].Settings.DotRadius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Radius size of the car dots on the map" />
-                            <ui:TitledSlider Width="400" Title="Font Size (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[TrackMapModule].Settings.FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Font size on the car dots on the map" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Line Thickness (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[TrackMapModule].Settings.LineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Track line thickness on the map" />
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[TrackMapModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
                 <styles:SHSection Title="DELTA OVERLAY OPTIONS" ShowSeparator="True">
                     <StackPanel HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
@@ -339,14 +308,6 @@
                     <StackPanel HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
                             <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[DashModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="LAUNCH ASSIST OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[LaunchAssistModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </StackPanel>
                 </styles:SHSection>
@@ -450,195 +411,6 @@
                     </StackPanel>
                 </styles:SHSection>
 
-                <styles:SHSection Title="FUEL CALCULATOR OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="When entering the pit, automatically set the fuel to add to the calculated amount needed. Overrides iRacing's Auto Fuel." 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[FuelCalcModule].Settings.AutoFuelEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Automatically set fuel to add on pit entry
-                        </styles:SHToggleCheckbox>
-                        
-                        <Label Content="Fuel Reserve (liters)"/>
-
-                        <TextBox Text="{Binding Plugin.Modules[FuelCalcModule].Settings.FuelReserveLiters.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                 ToolTip="How much fuel to keep as a reserve in liters to avoid bogging down the engine.">
-                            <!-- Style to highlight invalid input -->
-                            <TextBox.Style>
-                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Plugin.Modules[FuelCalcModule].Settings.FuelReserveLiters.Valid}" Value="False">
-                                            <Setter Property="Background" Value="LightCoral"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-
-                        <Label Content="Extra Consumption (%)" Margin="0,10,0,0"/>
-
-                        <TextBox Text="{Binding Plugin.Modules[FuelCalcModule].Settings.ExtraConsumption.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                 ToolTip="Extra per-lap consumption in percentage. Can be negative. Use this to increase/decrease the estimated average consumption per lap.">
-                            <!-- Style to highlight invalid input -->
-                            <TextBox.Style>
-                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Plugin.Modules[FuelCalcModule].Settings.ExtraConsumption.Valid}" Value="False">
-                                            <Setter Property="Background" Value="LightCoral"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel HorizontalAlignment="Left">
-                                <Label Content="Extra Race Lap(s)" Margin="0,10,0,0"/>
-
-                                <TextBox Text="{Binding Plugin.Modules[FuelCalcModule].Settings.ExtraRaceLaps.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                         ToolTip="How many extra race laps of fuel to add as a safety. Can have decimals or be negative.">
-                                    <!-- Style to highlight invalid input -->
-                                    <TextBox.Style>
-                                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Plugin.Modules[FuelCalcModule].Settings.ExtraRaceLaps.Valid}" Value="False">
-                                                    <Setter Property="Background" Value="LightCoral"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBox.Style>
-                                </TextBox>
-                            </StackPanel>
-
-                            <StackPanel HorizontalAlignment="Left">
-                                <Label Content="Extra Race Lap(s) Oval" Margin="20,10,0,0"/>
-
-                                <TextBox Text="{Binding Plugin.Modules[FuelCalcModule].Settings.ExtraRaceLapsOval.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                            ToolTip="How many extra race laps of fuel to add as a safety on ovals. Can have decimals or be negative." Margin="20,0,0,0">
-                                    <!-- Style to highlight invalid input -->
-                                    <TextBox.Style>
-                                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Plugin.Modules[FuelCalcModule].Settings.ExtraRaceLapsOval.Valid}" Value="False">
-                                                    <Setter Property="Background" Value="LightCoral"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBox.Style>
-                                </TextBox>
-                            </StackPanel>
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Instead of fueling the tank to the max every stop, use even fuel stints." 
-                            HorizontalAlignment="Left" Margin="0,20,4,8"
-                            IsChecked="{Binding Plugin.Modules[FuelCalcModule].Settings.EvenFuelStints, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Evenly distribute fuel across stints
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show / hide the Fuel Remaining info in the Fuel Calculator overlay." 
-                                HorizontalAlignment="Left" Margin="0,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[FuelCalcModule].Settings.FuelRemainingInfoVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show Fuel Remaining Info
-                            </styles:SHToggleCheckbox>
-
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show / hide the Pit Stop info in the Fuel Calculator overlay." 
-                                HorizontalAlignment="Left" Margin="0,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[FuelCalcModule].Settings.PitStopInfoVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show Pit Stop Info
-                            </styles:SHToggleCheckbox>
-
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show / hide the Consumption info in the Fuel Calculator overlay." 
-                                HorizontalAlignment="Left" Margin="0,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[FuelCalcModule].Settings.ConsumptionInfoVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show Consumption Info
-                            </styles:SHToggleCheckbox>
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Enable a fuel warning before the race when the current setup is under-fueled." 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[FuelCalcModule].Settings.EnablePreRaceWarning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Enable Pre-Race Fuel Warning
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[FuelCalcModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="WIND OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Rotate the wind direction arrow relative to the car rotation" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[WindModule].Settings.RotateWithCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Rotate with car
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[WindModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="PRECIPITATION OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Hide the overlay when rain precipitation is 0%" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[PrecipitationModule].Settings.HideWhenZero, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Hide when precipitation is 0%
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[PrecipitationModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="TRACK WETNESS OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Hide the overlay when track wetness is 0%" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[TrackWetnessModule].Settings.HideWhenZero, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Hide when wetness is 0%
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[TrackWetnessModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="HIGHLIGHTED DRIVER OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Hide the overlay when in the car." 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[DriverModule].HighlightedDriverSettings.HideWhenInCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Hide when in car
-                        </styles:SHToggleCheckbox>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Show a second line with the car brand information." 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[DriverModule].HighlightedDriverSettings.CarBrandVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Show car brand
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[DriverModule].HighlightedDriverSettings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[DriverModule].HighlightedDriverSettings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
             </StackPanel>
         </Grid>
     </ScrollViewer>
