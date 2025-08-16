@@ -11,7 +11,7 @@ namespace InsanePlugin
     [PluginDescription("Insane data for iRacing.")]
     [PluginAuthor("InsaneRocha")]
     [PluginName("Insane Plugin")]
-    public class InsanePluginMain : IPlugin, IDataPlugin, IWPFSettingsV2
+    public class InsanePlugin : IPlugin, IDataPlugin, IWPFSettingsV2
     {
         private List<PluginModuleBase> _sortedModules;
         public Dictionary<string, PluginModuleBase> Modules { get; private set; }

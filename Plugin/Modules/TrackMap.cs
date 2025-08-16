@@ -17,7 +17,7 @@ namespace InsanePlugin
     {
         public TrackMapSettings Settings { get; set; }
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             Settings = plugin.ReadCommonSettings<TrackMapSettings>("TrackMapSettings", () => new TrackMapSettings());
             plugin.AttachDelegate(name: "TrackMap.HideInReplay", valueProvider: () => Settings.HideInReplay);
@@ -27,12 +27,12 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "TrackMap.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
 
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("TrackMapSettings", Settings);
         }

@@ -171,7 +171,7 @@ namespace InsanePlugin
 
         public override int UpdatePriority => 30;
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _sessionModule = plugin.GetModule<SessionModule>();
             _carModule = plugin.GetModule<CarModule>();
@@ -215,7 +215,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "Highlighted.BestLapTime", valueProvider: () => HighlightedDriver.BestLapTime);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (data.FrameTime - _lastUpdateTime < _updateInterval) return;
             _lastUpdateTime = data.FrameTime;
@@ -465,7 +465,7 @@ namespace InsanePlugin
             UpdateIRatingChange(ref data);
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("HighlightedDriverSettings", HighlightedDriverSettings);
         }

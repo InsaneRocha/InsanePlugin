@@ -32,7 +32,7 @@ namespace InsanePlugin
         public const string StateCare = "Care";
         public const string StateYield = "Yield";
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _sessionModule = plugin.GetModule<SessionModule>();
 
@@ -47,7 +47,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "RejoinHelper.ColorPct", valueProvider: () => ColorPct);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             dynamic raw = data.NewData.GetRawDataObject();
             if (raw == null) return;
@@ -106,7 +106,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("RejoinHelperSettings", Settings);
         }

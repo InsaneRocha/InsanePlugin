@@ -17,7 +17,7 @@ namespace InsanePlugin
         public BlindSpotMonitorSettings Settings { get; set; }
         public bool Visible { get; set; } = false;
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _spotterModule = plugin.GetModule<SpotterModule>();
 
@@ -26,7 +26,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "BlindSpotMonitor.Visible", valueProvider: () => Visible);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (!Settings.Enabled)
             {
@@ -38,7 +38,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("BlindSpotMonitorSettings", Settings);
         }

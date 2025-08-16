@@ -20,7 +20,7 @@ namespace InsanePlugin
         public string TrackType { get; set; } = string.Empty;
         public override int UpdatePriority => 20;
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _trackInfo.LoadAsync();
 
@@ -28,7 +28,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "Track.RaceStartTrackPct", valueProvider: () => RaceStartTrackPct);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (_trackInfo.Json == null) return;
             if (data.NewData.TrackId == _lastTrackId) return;
@@ -63,7 +63,7 @@ namespace InsanePlugin
             try { TrackType = raw.AllSessionData["WeekendInfo"]["TrackType"]; } catch { Debug.Assert(false); }
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
         }
     }

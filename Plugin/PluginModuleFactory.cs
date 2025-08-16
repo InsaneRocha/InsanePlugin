@@ -10,9 +10,9 @@ namespace InsanePlugin
     public abstract class PluginModuleBase
     {
         public virtual int UpdatePriority => 100;
-        public abstract void Init(PluginManager pluginManager, InsanePluginMain plugin);
-        public abstract void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data);
-        public abstract void End(PluginManager pluginManager, InsanePluginMain plugin);
+        public abstract void Init(PluginManager pluginManager, InsanePlugin plugin);
+        public abstract void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data);
+        public abstract void End(PluginManager pluginManager, InsanePlugin plugin);
     }
 
     public static class PluginModuleFactory

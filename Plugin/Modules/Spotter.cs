@@ -27,7 +27,7 @@ namespace InsanePlugin
         public double OverlapAhead { get; internal set; } = 0;
         public double OverlapBehind { get; internal set; } = 0;
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             Settings = plugin.ReadCommonSettings<SpotterSettings>("SpotterSettings", () => new SpotterSettings());
             plugin.AttachDelegate(name: "Spotter.Enabled", valueProvider: () => Settings.Enabled);
@@ -41,7 +41,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "Spotter.OverlapBehind", valueProvider: () => OverlapBehind);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             UpdateOverlapAhead(ref data);
             UpdateOverlapBehind(ref data);
@@ -81,7 +81,7 @@ namespace InsanePlugin
             OverlapBehind = overlap;
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("SpotterSettings", Settings);
         }

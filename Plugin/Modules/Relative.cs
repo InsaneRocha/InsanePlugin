@@ -20,7 +20,7 @@ namespace InsanePlugin
         public bool CountryFlagVisible { get; set; } = true;
         public bool SafetyRatingVisible { get; set; } = true;
         public bool IRatingVisible { get; set; } = true;
-        public bool IRatingChangeVisible { get; set; } = false;
+        public bool IRatingChangeVisible { get; set; } = true;
         public int AlternateRowBackgroundColor { get; set; } = 5;
         public bool HighlightPlayerRow { get; set; } = true;
         public int BackgroundOpacity { get; set; } = 60;
@@ -83,7 +83,7 @@ namespace InsanePlugin
         public RelativeAhead Ahead = new RelativeAhead();
         public RelativeBehind Behind = new RelativeBehind();
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _driverModule = plugin.GetModule<DriverModule>();
             _carModule = plugin.GetModule<CarModule>();
@@ -109,7 +109,7 @@ namespace InsanePlugin
             InitRelative(plugin, "Behind", Behind.Rows, RelativeBehind.MaxRows);
         }
 
-        private void InitRelative(InsanePluginMain plugin, string aheadBehind, List<RelativeRow> rows, int maxRows)
+        private void InitRelative(InsanePlugin plugin, string aheadBehind, List<RelativeRow> rows, int maxRows)
         {
             for (int rowIdx = 0; rowIdx < maxRows; rowIdx++)
             {
@@ -135,7 +135,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (data.FrameTime - _lastUpdateTime < _updateInterval) return;
             _lastUpdateTime = data.FrameTime;
@@ -186,7 +186,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("RelativeSettings", Settings);
         }

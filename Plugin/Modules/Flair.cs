@@ -50,12 +50,12 @@ namespace InsanePlugin
 
         public override int UpdatePriority => 20;
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _flairs.LoadAsync();
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (_flairs.Json != null && _flairLookup == null)
             {
@@ -63,7 +63,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
         }
 

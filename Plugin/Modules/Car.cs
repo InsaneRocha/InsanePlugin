@@ -63,7 +63,7 @@ namespace InsanePlugin
         public double TotalBrakeBias { get; set; } = 0.0;
         public double TotalPeakBrakeBias { get; set; } = 0.0;
         public override int UpdatePriority => 20;
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _carInfo.LoadAsync();
             _carBrandInfo.LoadAsync();
@@ -108,7 +108,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "Car.TotalPeakBrakeBias", valueProvider: () => TotalPeakBrakeBias);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (data.FrameTime - _lastUpdateTime < _updateInterval) return;
             _lastUpdateTime = data.FrameTime;
@@ -315,7 +315,7 @@ namespace InsanePlugin
             HasDryTireCompounds = car["hasDryTireCompounds"]?.Value<bool>() ?? false;
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
         }
 

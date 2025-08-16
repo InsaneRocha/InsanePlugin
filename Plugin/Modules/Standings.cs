@@ -140,7 +140,7 @@ namespace InsanePlugin
             CarClasses = new List<StandingCarClass>(Enumerable.Range(0, MaxCarClasses).Select(x => new StandingCarClass()));
         }
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _driverModule = plugin.GetModule<DriverModule>();
             _carModule = plugin.GetModule<CarModule>();
@@ -236,7 +236,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             if (data.FrameTime - _lastUpdateTime < _updateInterval) return;
             _lastUpdateTime = data.FrameTime;
@@ -482,7 +482,7 @@ namespace InsanePlugin
             TotalSoF = CalculateTotalSof(data.NewData.Opponents);
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("StandingsSettings", Settings);
         }

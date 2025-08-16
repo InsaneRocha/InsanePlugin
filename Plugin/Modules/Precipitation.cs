@@ -15,19 +15,19 @@ namespace InsanePlugin
     {
         public PrecipitationSettings Settings { get; set; }
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             Settings = plugin.ReadCommonSettings<PrecipitationSettings>("PrecipitationSettings", () => new PrecipitationSettings());
             plugin.AttachDelegate(name: "Precipitation.HideWhenZero", valueProvider: () => Settings.HideWhenZero);
             plugin.AttachDelegate(name: "Precipitation.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
 
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("PrecipitationSettings", Settings);
         }

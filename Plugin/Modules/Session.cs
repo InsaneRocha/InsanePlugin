@@ -55,7 +55,7 @@ namespace InsanePlugin
 
         public override int UpdatePriority => 10;
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.AttachDelegate(name: "Session.Race", valueProvider: () => Race);
             plugin.AttachDelegate(name: "Session.Qual", valueProvider: () => Qual);
@@ -72,7 +72,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "Session.LapsTotal", valueProvider: () => SessionLapsTotal);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             dynamic raw = data.NewData.GetRawDataObject();
             if (raw == null) return;
@@ -211,7 +211,7 @@ namespace InsanePlugin
             }
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
         }
     }

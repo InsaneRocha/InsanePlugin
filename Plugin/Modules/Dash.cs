@@ -13,18 +13,18 @@ namespace InsanePlugin
     {
         public DashSettings Settings { get; set; }
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             Settings = plugin.ReadCommonSettings<DashSettings>("DashSettings", () => new DashSettings());
             plugin.AttachDelegate(name: "Dash.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
 
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("DashSettings", Settings);
         }

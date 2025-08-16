@@ -11,12 +11,12 @@ namespace InsanePlugin
 {
     public class SettingsControlViewModel
     {
-        public InsanePluginMain Plugin { get; }
+        public InsanePlugin Plugin { get; }
 
         public SettingsControlViewModel()
         {
         }
-        public SettingsControlViewModel(InsanePluginMain plugin) : this()
+        public SettingsControlViewModel(InsanePlugin plugin) : this()
         {
             Plugin = plugin;
         }
@@ -24,14 +24,14 @@ namespace InsanePlugin
 
     public partial class SettingsControl : UserControl
     {
-        public InsanePluginMain Plugin { get; }
+        public InsanePlugin Plugin { get; }
 
         public SettingsControl()
         {
             InitializeComponent();
         }
 
-        public SettingsControl(InsanePluginMain plugin) : this()
+        public SettingsControl(InsanePlugin plugin) : this()
         {
             this.Plugin = plugin;
             this.DataContext = new SettingsControlViewModel(plugin);

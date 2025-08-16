@@ -38,7 +38,7 @@ namespace InsanePlugin
         public HeadToHeadRow HeadToHeadRowAhead { get; internal set; }
         public HeadToHeadRow HeadToHeadRowBehind { get; internal set; }
 
-        public override void Init(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
             _sessionModule = plugin.GetModule<SessionModule>();
             _standingsModule = plugin.GetModule<StandingsModule>();
@@ -56,7 +56,7 @@ namespace InsanePlugin
             InitHeadToHead(plugin, "Behind", HeadToHeadRowBehind);
         }
 
-        public void InitHeadToHead(InsanePluginMain plugin, string aheadBehind, HeadToHeadRow row)
+        public void InitHeadToHead(InsanePlugin plugin, string aheadBehind, HeadToHeadRow row)
         {
             plugin.AttachDelegate(name: $"Delta.{aheadBehind}.Visible", valueProvider: () => row.Visible);
             plugin.AttachDelegate(name: $"Delta.{aheadBehind}.LivePositionInClass", valueProvider: () => row.LivePositionInClass);
@@ -65,7 +65,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: $"Delta.{aheadBehind}.LastLapTime", valueProvider: () => row.LastLapTime);
         }
 
-        public override void DataUpdate(PluginManager pluginManager, InsanePluginMain plugin, ref GameData data)
+        public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
             dynamic raw = data.NewData.GetRawDataObject();
             if (raw == null) return;
@@ -127,7 +127,7 @@ namespace InsanePlugin
             row.LastLapTime = opponent.LastLapTime;
         }
 
-        public override void End(PluginManager pluginManager, InsanePluginMain plugin)
+        public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
             plugin.SaveCommonSettings("DeltaSettings", Settings);
         }
