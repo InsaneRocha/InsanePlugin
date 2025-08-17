@@ -107,10 +107,8 @@
     <Compile Include="ModuleSetting.cs" />
     <Compile Include="Modules\BlindSpotMonitor.cs" />
     <Compile Include="Modules\Car.cs" />
-    <Compile Include="Modules\Delta.cs" />
     <Compile Include="Modules\Driver.cs" />
     <Compile Include="Modules\Flair.cs" />
-    <Compile Include="Modules\Precipitation.cs" />
     <Compile Include="Modules\RejoinHelper.cs" />
     <Compile Include="Modules\Relative.cs" />
     <Compile Include="Modules\Session.cs" />

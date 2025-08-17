@@ -1,0 +1,703 @@
+{
+  "Variables": {
+    "DashboardVariables": []
+  },
+  "DashboardDebugManager": {
+    "WindowPositionSettings": {
+      "IsFullScreen": false,
+      "Position": "583,128,800,172",
+      "TopMost": false,
+      "AllowTransparency": true,
+      "CloseOnMonitorLoss": false,
+      "NoWindowActivate": false
+    }
+  },
+  "Version": 2,
+  "Id": "37b89660-c8d7-424e-affc-78c564163dff",
+  "BaseHeight": 150,
+  "BaseWidth": 700,
+  "BackgroundColor": "#FF000000",
+  "Screens": [
+    {
+      "RenderingSkip": 0,
+      "Name": "Screen1",
+      "InGameScreen": true,
+      "IdleScreen": false,
+      "PitScreen": false,
+      "ScreenId": "c43f05a1-2106-46d6-a6ca-a7fe06b19fe2",
+      "AllowOverlays": true,
+      "IsForegroundLayer": false,
+      "IsOverlayLayer": false,
+      "OverlayTriggerExpression": {
+        "Expression": ""
+      },
+      "ScreenEnabledExpression": {
+        "Expression": ""
+      },
+      "OverlayMaxDuration": 0,
+      "OverlayMinDuration": 0,
+      "IsBackgroundLayer": false,
+      "BackgroundColor": "#00FFFFFF",
+      "Items": [
+        {
+          "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+          "Group": false,
+          "Repetitions": 0,
+          "Childrens": [
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Group": true,
+              "Repetitions": 0,
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "Rotation": 90.0,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 9.0,
+                  "Opacity": 75.0,
+                  "Top": 119.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Left Edge Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "Rotation": 90.0,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 650.0,
+                  "Opacity": 75.0,
+                  "Top": 119.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Right Edge Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+                  "Group": true,
+                  "Repetitions": 0,
+                  "Childrens": [
+                    {
+                      "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                      "Image": "LED Off x1.1",
+                      "AutoSize": false,
+                      "BackgroundColor": "#00FFFFFF",
+                      "Height": 50.0,
+                      "Left": 323.0,
+                      "Top": 96.0,
+                      "Visible": true,
+                      "BlinkPhasisInverted": false,
+                      "Width": 50.0,
+                      "Name": "Led Blue 1 Off",
+                      "RenderingSkip": 0,
+                      "MinimumRefreshIntervalMS": 0.0,
+                      "Bindings": {
+                        "Left": {
+                          "Formula": {
+                            "Expression": "323+\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
+                          },
+                          "Mode": 2
+                        }
+                      }
+                    },
+                    {
+                      "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                      "Image": "LED Blue x1.1",
+                      "AutoSize": false,
+                      "BackgroundColor": "#00FFFFFF",
+                      "Height": 50.0,
+                      "Left": 323.0,
+                      "Top": 96.0,
+                      "Visible": true,
+                      "BlinkPhasisInverted": false,
+                      "Width": 50.0,
+                      "Name": "Led Blue 1 On",
+                      "RenderingSkip": 0,
+                      "MinimumRefreshIntervalMS": 0.0,
+                      "Bindings": {
+                        "Left": {
+                          "Formula": {
+                            "Expression": "323+\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
+                          },
+                          "Mode": 2
+                        },
+                        "Opacity": {
+                          "Formula": {
+                            "Expression": "if(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*6.66\r\n)"
+                          },
+                          "Mode": 2
+                        }
+                      }
+                    }
+                  ],
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Name": "Led Blue 1",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+                  "Group": true,
+                  "Repetitions": 0,
+                  "Childrens": [
+                    {
+                      "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                      "Image": "LED Off x1.1",
+                      "AutoSize": false,
+                      "BackgroundColor": "#00FFFFFF",
+                      "Height": 50.0,
+                      "Left": 323.0,
+                      "Top": 96.0,
+                      "Visible": true,
+                      "BlinkPhasisInverted": false,
+                      "Width": 50.0,
+                      "Name": "Led Blue 2 Off",
+                      "RenderingSkip": 0,
+                      "MinimumRefreshIntervalMS": 0.0,
+                      "Bindings": {
+                        "Left": {
+                          "Formula": {
+                            "Expression": "323-\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*36\r\n)"
+                          },
+                          "Mode": 2
+                        }
+                      }
+                    },
+                    {
+                      "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                      "Image": "LED Blue x1.1",
+                      "AutoSize": false,
+                      "BackgroundColor": "#00FFFFFF",
+                      "Height": 50.0,
+                      "Left": 323.0,
+                      "Top": 96.0,
+                      "Visible": true,
+                      "BlinkPhasisInverted": false,
+                      "Width": 50.0,
+                      "Name": "Led Blue 2 On",
+                      "RenderingSkip": 0,
+                      "MinimumRefreshIntervalMS": 0.0,
+                      "Bindings": {
+                        "Left": {
+                          "Formula": {
+                            "Expression": "323-\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*36\r\n)"
+                          },
+                          "Mode": 2
+                        },
+                        "Opacity": {
+                          "Formula": {
+                            "Expression": "if(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*6.66\r\n)"
+                          },
+                          "Mode": 2
+                        }
+                      }
+                    }
+                  ],
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Name": "Led Blue 2",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0
+                }
+              ],
+              "Visible": true,
+              "BlinkPhasisInverted": false,
+              "Name": "Bottom Leds",
+              "RenderingSkip": 0,
+              "MinimumRefreshIntervalMS": 0.0,
+              "Bindings": {
+                "Visible": {
+                  "Formula": {
+                    "Expression": "![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<9\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>2"
+                  },
+                  "Mode": 2
+                }
+              }
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Group": true,
+              "Repetitions": 0,
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 10.0,
+                  "Opacity": 75.0,
+                  "Top": 119.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Bottom Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "LED Red x1.1",
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 50.0,
+                  "Left": 5.0,
+                  "Top": 96.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 50.0,
+                  "Name": "Led Red Left Bottom",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Top": {
+                      "Formula": {
+                        "Expression": "93\r\n-\r\nif(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=2\r\n,0\r\n,(2-[InsanePlugin.Relative.Behind.DistanceToPlayer.0])*14\r\n)"
+                      },
+                      "Mode": 2
+                    },
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 10.0,
+                  "Opacity": 75.0,
+                  "Top": 51.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Middle Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "LED Red x1.1",
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 50.0,
+                  "Left": 5.0,
+                  "Top": 28.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 50.0,
+                  "Name": "Led Red Left Top",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Top": {
+                      "Formula": {
+                        "Expression": "28\r\n+\r\nif(\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]<=-2\r\n,0\r\n,([InsanePlugin.Relative.Ahead.DistanceToPlayer.0])*14\r\n)"
+                      },
+                      "Mode": 2
+                    },
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 10.0,
+                  "Opacity": 75.0,
+                  "Top": 4.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Top Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                }
+              ],
+              "Visible": true,
+              "BlinkPhasisInverted": false,
+              "Name": "Led Red Left",
+              "RenderingSkip": 0,
+              "MinimumRefreshIntervalMS": 0.0,
+              "Bindings": {
+                "Visible": {
+                  "Formula": {
+                    "Expression": "in(isnull([DataCorePlugin.GameRawData.Telemetry.CarLeftRight],1),1,2,4,5)"
+                  },
+                  "Mode": 2
+                }
+              }
+            },
+            {
+              "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.Layer, SimHub.Plugins",
+              "Group": true,
+              "Repetitions": 0,
+              "Childrens": [
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 651.0,
+                  "Opacity": 75.0,
+                  "Top": 119.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Bottom Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "LED Red x1.1",
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 50.0,
+                  "Left": 646.0,
+                  "Top": 96.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 50.0,
+                  "Name": "Led Red Right Bottom",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<=2"
+                      },
+                      "Mode": 2
+                    },
+                    "Top": {
+                      "Formula": {
+                        "Expression": "93\r\n-\r\nif(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=2\r\n,0\r\n,(2-[InsanePlugin.Relative.Behind.DistanceToPlayer.0])*14\r\n)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 651.0,
+                  "Opacity": 75.0,
+                  "Top": 51.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Middle Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.ImageItem, SimHub.Plugins",
+                  "Image": "LED Red x1.1",
+                  "AutoSize": false,
+                  "BackgroundColor": "#00FFFFFF",
+                  "Height": 50.0,
+                  "Left": 646.0,
+                  "Top": 28.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 50.0,
+                  "Name": "Led Red Right Top",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Top": {
+                      "Formula": {
+                        "Expression": "28\r\n+\r\nif(\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]<=-2\r\n,0\r\n,([InsanePlugin.Relative.Ahead.DistanceToPlayer.0])*14\r\n)"
+                      },
+                      "Mode": 2
+                    },
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>-2"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                },
+                {
+                  "$type": "SimHub.Plugins.OutputPlugins.GraphicalDash.Models.RectangleItem, SimHub.Plugins",
+                  "IsRectangleItem": true,
+                  "BackgroundColor": "#FF000000",
+                  "BorderStyle": {
+                    "BorderColor": "#FF000000",
+                    "BorderTop": 1,
+                    "BorderBottom": 1,
+                    "BorderLeft": 1,
+                    "BorderRight": 1,
+                    "RadiusTopLeft": 5,
+                    "RadiusTopRight": 5,
+                    "RadiusBottomLeft": 5,
+                    "RadiusBottomRight": 5
+                  },
+                  "Height": 4.0,
+                  "Left": 651.0,
+                  "Opacity": 75.0,
+                  "Top": 4.0,
+                  "Visible": true,
+                  "BlinkPhasisInverted": false,
+                  "Width": 40.0,
+                  "Name": "Top Marker",
+                  "RenderingSkip": 0,
+                  "MinimumRefreshIntervalMS": 0.0,
+                  "Bindings": {
+                    "Visible": {
+                      "Formula": {
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                      },
+                      "Mode": 2
+                    }
+                  }
+                }
+              ],
+              "Visible": true,
+              "BlinkPhasisInverted": false,
+              "Name": "Led Red Right",
+              "RenderingSkip": 0,
+              "MinimumRefreshIntervalMS": 0.0,
+              "Bindings": {
+                "Visible": {
+                  "Formula": {
+                    "Expression": "in(isnull([DataCorePlugin.GameRawData.Telemetry.CarLeftRight],1),1,3,4,6)"
+                  },
+                  "Mode": 2
+                }
+              }
+            }
+          ],
+          "Visible": true,
+          "BlinkPhasisInverted": false,
+          "Name": "Dots",
+          "RenderingSkip": 0,
+          "MinimumRefreshIntervalMS": 0.0,
+          "Bindings": {
+            "Visible": {
+              "Formula": {
+                "Expression": "(isnull([DataCorePlugin.GameRawData.Telemetry.IsReplayPlaying],0)='False')"
+              },
+              "Mode": 2
+            }
+          }
+        }
+      ],
+      "MinimumRefreshIntervalMS": 0.0
+    }
+  ],
+  "SnapToGrid": false,
+  "HideLabels": false,
+  "ShowForeground": true,
+  "ForegroundOpacity": 50.0,
+  "ShowBackground": true,
+  "BackgroundOpacity": 50.0,
+  "ShowBoundingRectangles": false,
+  "GridSize": 10,
+  "Images": [
+    {
+      "Name": "LED Blue x1.1",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 164,
+      "Height": 164,
+      "Length": 24282,
+      "MD5": "daa6cc5d9fcc0f34185a92c2c88395ec"
+    },
+    {
+      "Name": "LED Red x1.1",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 164,
+      "Height": 164,
+      "Length": 24115,
+      "MD5": "8640322e097cc379ee6d1fe8319d609b"
+    },
+    {
+      "Name": "LED Off x1.1",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Width": 164,
+      "Height": 164,
+      "Length": 13081,
+      "MD5": "71af9be3b224682848dc214c46347c45"
+    },
+    {
+      "Name": "LED White x1.1",
+      "Extension": ".png",
+      "Modified": false,
+      "Optimized": true,
+      "Length": 18477,
+      "MD5": "24169700919cc66304a8ec8849d965e9"
+    }
+  ],
+  "Metadata": {
+    "ScreenCount": 1.0,
+    "InGameScreensIndexs": [
+      0
+    ],
+    "IdleScreensIndexs": [],
+    "MainPreviewIndex": 0,
+    "IsOverlay": true,
+    "OverlaySizeWarning": false,
+    "MetadataVersion": 2.0,
+    "EnableOnDashboardMessaging": false,
+    "PitScreensIndexs": [],
+    "SimHubVersion": "9.9.3",
+    "Category": "RSC",
+    "Title": "1 Insane Radar",
+    "Description": "",
+    "Author": "InsaneRocha",
+    "Width": 700.0,
+    "Height": 150.0,
+    "DashboardVersion": ""
+  },
+  "ShowOnScreenControls": false,
+  "IsOverlay": true,
+  "EnableClickThroughOverlay": true,
+  "EnableOnDashboardMessaging": false,
+  "UseStrictJSIsolation": false,
+  "UseStrictJSIsolationWarning": true
+}

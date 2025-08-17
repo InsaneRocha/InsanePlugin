@@ -1,0 +1,21 @@
+{
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": false,
+  "PitScreensIndexs": [],
+  "SimHubVersion": "9.9.3",
+  "Category": "RSC",
+  "Title": "1 Insane Radar",
+  "Description": "",
+  "Author": "InsaneRocha",
+  "Width": 700.0,
+  "Height": 150.0,
+  "DashboardVersion": ""
+}

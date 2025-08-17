@@ -11,29 +11,10 @@
                     <StackPanel HorizontalAlignment="Left">
 
                         <styles:SHToggleCheckbox 
-                            ToolTip="Show the header with session information" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.HeaderVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Show header
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Header Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.HeaderWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ui:TitledSlider Width="400" Title="Header Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.HeaderOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
                             ToolTip="Show the car class header with class information" 
                             HorizontalAlignment="Left" Margin="0,0,4,8"
                             IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.CarClassHeaderVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             Show car class header
-                        </styles:SHToggleCheckbox>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Highlight the player row with a bright background color" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.HighlightPlayerRow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Highlight player row
                         </styles:SHToggleCheckbox>
 
                         <styles:SHToggleCheckbox 
@@ -191,23 +172,6 @@
                         <StackPanel Orientation="Horizontal">
                             <ui:TitledSlider Width="400" Title="Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="DELTA OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[DeltaModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ui:TitledSlider Width="400" Title="Colored Background Opacity (%)" Maximum="100" Minimum="40" Value="{Binding Plugin.Modules[DeltaModule].Settings.ColoredBackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Background opacity of colored elements such as the speed delta" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="DASH OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[DashModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </StackPanel>
                 </styles:SHSection>

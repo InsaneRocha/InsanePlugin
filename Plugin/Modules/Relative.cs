@@ -34,6 +34,7 @@ namespace InsanePlugin
         public TimeSpan LastLapTime { get; set; } = TimeSpan.Zero;
         public int SessionFlags { get; set; } = 0;
         public bool IsInPit { get; set; } = false;
+        public double DistanceToPlayer { get; set; } = 0;
     }
 
     public class RelativeAhead
@@ -103,6 +104,7 @@ namespace InsanePlugin
                 plugin.AttachDelegate(name: $"Relative.{aheadBehind}.LastLapTime.{rowIdx:0}", valueProvider: () => row.LastLapTime);
                 plugin.AttachDelegate(name: $"Relative.{aheadBehind}.SessionFlags.{rowIdx:0}", valueProvider: () => row.SessionFlags);
                 plugin.AttachDelegate(name: $"Relative.{aheadBehind}.IsInPit.{rowIdx:0}", valueProvider: () => row.IsInPit);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.DistanceToPlayer.{rowIdx:0}", valueProvider: () => row.DistanceToPlayer);
             }
         }
 
@@ -194,6 +196,7 @@ namespace InsanePlugin
                 row.LastLapTime = driver.LastLapTime;
                 row.SessionFlags = driver.SessionFlags;
                 row.IsInPit = driver.IsInPit;
+                row.DistanceToPlayer = driver.DistanceToPlayer*-1;
             }
         }
 
@@ -223,6 +226,7 @@ namespace InsanePlugin
             row.LastLapTime = TimeSpan.Zero;
             row.SessionFlags = 0;
             row.IsInPit = false;
+            row.DistanceToPlayer = 0;
         }
     }
 }

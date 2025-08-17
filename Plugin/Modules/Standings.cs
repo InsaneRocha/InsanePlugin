@@ -11,9 +11,7 @@ namespace InsanePlugin
 
     public class StandingsSettings : ModuleSettings
     {
-        public int HeaderWidth { get; set; } = 10;
         public int Width { get; set; } = 80;
-        public bool HeaderVisible { get; set; } = true;
         public bool CarClassHeaderVisible { get; set; } = true;
         public int LeadFocusedRows { get; set; } = 3;
         public int MaxRowsOtherClasses { get; set; } = 3;
@@ -35,8 +33,7 @@ namespace InsanePlugin
         public bool InvertDeltaToPlayer { get; set; } = false;
         public bool ShowStintLapInRace { get; set; } = true;
         public int AlternateRowBackgroundColor { get; set; } = 5;
-        public int HeaderOpacity { get; set; } = 90;
-        public int BackgroundOpacity { get; set; } = 7;
+        public int BackgroundOpacity { get; set; } = 60;
     }
 
     public class StandingRow
@@ -149,8 +146,6 @@ namespace InsanePlugin
             _fontGraphics = Graphics.FromImage(_fontBitmap);
 
             Settings = plugin.ReadCommonSettings<StandingsSettings>("StandingsSettings", () => new StandingsSettings());
-            plugin.AttachDelegate(name: $"Standings.HeaderVisible", valueProvider: () => Settings.HeaderVisible);
-            plugin.AttachDelegate(name: $"Standings.HeaderWidth", valueProvider: () => Settings.HeaderWidth);
             plugin.AttachDelegate(name: $"Standings.Width", valueProvider: () => Settings.Width);
             plugin.AttachDelegate(name: $"Standings.CarClassHeaderVisible", valueProvider: () => Settings.CarClassHeaderVisible);
             plugin.AttachDelegate(name: $"Standings.VisibleClassCount", valueProvider: () => VisibleClassCount);
@@ -172,7 +167,6 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: $"Standings.UseDeltaToPlayer", valueProvider: () => Settings.UseDeltaToPlayer);
             plugin.AttachDelegate(name: $"Standings.ShowStintLapInRace", valueProvider: () => Settings.ShowStintLapInRace);
             plugin.AttachDelegate(name: "Standings.AlternateRowBackgroundColor", valueProvider: () => Settings.AlternateRowBackgroundColor);
-            plugin.AttachDelegate(name: "Standings.HeaderOpacity", valueProvider: () => Settings.HeaderOpacity);
             plugin.AttachDelegate(name: "Standings.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
 
             for (int carClassIdx = 0; carClassIdx < MaxCarClasses; carClassIdx++)
