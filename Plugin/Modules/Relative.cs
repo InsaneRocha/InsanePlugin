@@ -28,7 +28,7 @@ namespace InsanePlugin
         public double SafetyRating { get; set; } = 0;
         public double GapToPlayer { get; set; } = 0;
         public double InsaneGapToPlayer { get; set; } = 0;
-        public bool PlayerGainTime { get; set; } = false;
+        public int PlayerGainTime { get; set; } = 0;
         public string GapToPlayerCombined { get; set; } = string.Empty;
         public double CurrentLapHighPrecision { get; set; } = 0;
         public TimeSpan LastLapTime { get; set; } = TimeSpan.Zero;
@@ -115,16 +115,16 @@ namespace InsanePlugin
             {
                 List<Driver> driversAhead = mDriverModule.Drivers
                     .Values
-                    .Where(d => d.GapToPlayer > 0)
-                    .OrderBy(d => d.GapToPlayer)
+                    .Where(d => d.DistanceToPlayer > 0 && d.CarClassId != 11)
+                    .OrderBy(d => d.DistanceToPlayer)
                     .Take(3)
                     .ToList();
 
 
                 List<Driver> driversbehind = mDriverModule.Drivers
                     .Values
-                    .Where(d => d.GapToPlayer < 0)
-                    .OrderBy(d => d.GapToPlayer)
+                    .Where(d => d.DistanceToPlayer < 0 && d.CarClassId != 11)
+                    .OrderByDescending(d => d.DistanceToPlayer)
                     .Take(3)
                     .ToList();
 

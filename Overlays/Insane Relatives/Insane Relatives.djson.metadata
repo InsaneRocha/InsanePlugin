@@ -1,0 +1,23 @@
+{
+  "ScreenCount": 1.0,
+  "InGameScreensIndexs": [
+    0
+  ],
+  "IdleScreensIndexs": [
+    0
+  ],
+  "MainPreviewIndex": 0,
+  "IsOverlay": true,
+  "OverlaySizeWarning": false,
+  "MetadataVersion": 2.0,
+  "EnableOnDashboardMessaging": true,
+  "PitScreensIndexs": [],
+  "SimHubVersion": "9.9.3",
+  "Category": null,
+  "Title": "Insane Relatives",
+  "Description": null,
+  "Author": "InsaneRocha",
+  "Width": 460.0,
+  "Height": 234.0,
+  "DashboardVersion": ""
+}

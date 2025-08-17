@@ -90,14 +90,12 @@ namespace InsanePlugin
         public int TeamIncidentCount { get; set; } = 0;
         public int IRating { get; set; } = 0;
         public int IRatingChange { get; set; } = 0;
-        public double Speed { get; set; } = 0;
         public double OldLapDistPct { get; set; } = 0;
         public double LapDistPct { get; set; } = 0;
         public double OldGapToPlayer { get; set; } = 0;
         public double GapToPlayer { get; set; } = 0;
-        public bool PlayerGainTime { get; set; } = false;
-
-        
+        public double DistanceToPlayer { get; set; } = 0;
+        public int PlayerGainTime { get; set; } = 0;
     }
     
     public class ClassLeaderboard
@@ -111,7 +109,6 @@ namespace InsanePlugin
         private DateTime mLastUpdateTime = DateTime.MinValue;
         private TimeSpan mUpdateInterval = TimeSpan.FromMilliseconds(100);
         private TimeSpan mMinTimeInPit = TimeSpan.FromMilliseconds(2500);
-        private TimeSpan mRealUpdateInterval = TimeSpan.FromMilliseconds(0);
 
         private SessionModule mSessionModule = null;
         private CarModule mCarModule = null;
@@ -147,6 +144,8 @@ namespace InsanePlugin
         public int PlayerCurrentLap { get; set; } = 0;
         public int PlayerTeamIncidentCount { get; set; } = 0;
         public int PlayerIRatingChange { get; set; } = 0;
+        public double ResultsAverageLapTime { get; set; } = -1;
+        public double InsaneAverageLapTime { get; set; } = -1;
 
         public List<ClassLeaderboard> LiveClassLeaderboards { get; private set; } = new List<ClassLeaderboard>();
 
@@ -177,8 +176,7 @@ namespace InsanePlugin
 
         public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
-            mRealUpdateInterval = data.FrameTime - mLastUpdateTime;
-            if (mRealUpdateInterval < mUpdateInterval) return;
+            if (data.FrameTime - mLastUpdateTime < mUpdateInterval) return;
             mLastUpdateTime = data.FrameTime;
 
             dynamic raw = data.NewData.GetRawDataObject();
@@ -513,10 +511,24 @@ namespace InsanePlugin
             int driverCount = 0;
             try { driverCount = (int)raw.AllSessionData["DriverInfo"]["Drivers"].Count; } catch { Debug.Assert(false); }
 
+            try { ResultsAverageLapTime = (double)raw.CurrentSessionInfo.ResultsAverageLapTime; } catch { Debug.Assert(false); }
+
+            double avgLapTime = 0;
+            bool hasPaceCar = false;
+
             for (int i = 0; i < driverCount; i++)
             {
                 int carIdx = -1;
                 try { carIdx = int.Parse(raw.AllSessionData["DriverInfo"]["Drivers"][i]["CarIdx"]); } catch { Debug.Assert(false); }
+
+                int paceCarIdx = -1;
+                try { paceCarIdx = int.Parse(raw.AllSessionData["DriverInfo"]["PaceCarIdx"]); } catch { Debug.Assert(false); }
+
+                if (carIdx == paceCarIdx)
+                {
+                    hasPaceCar = true;
+                    continue;
+                }
 
                 string carNumber = string.Empty;
                 try { carNumber = raw.AllSessionData["DriverInfo"]["Drivers"][i]["CarNumber"]; } catch { Debug.Assert(false); }
@@ -528,6 +540,10 @@ namespace InsanePlugin
                 RawDataHelper.TryGetSessionData<int>(ref data, out int carClassId, "DriverInfo", "Drivers", i, "CarClassID");
                 RawDataHelper.TryGetSessionData<int>(ref data, out int teamIncidentCount, "DriverInfo", "Drivers", i, "TeamIncidentCount");
                 RawDataHelper.TryGetSessionData<int>(ref data, out int iRating, "DriverInfo", "Drivers", i, "IRating");
+
+                double avgLapTimeDriver;
+                RawDataHelper.TryGetSessionData<double>(ref data, out avgLapTimeDriver, "DriverInfo", "Drivers", i, "CarClassEstLapTime");
+                avgLapTime = avgLapTime + avgLapTimeDriver;
 
                 double lastLapTime = 0;
                 try { lastLapTime = Math.Max(0, (double)raw.Telemetry["CarIdxLastLapTime"][carIdx]); } catch { Debug.Assert(false); }
@@ -564,17 +580,6 @@ namespace InsanePlugin
                     double speed = 0.0;
                     double lapDistPct = 0.0;
                     RawDataHelper.TryGetTelemetryData<double>(ref data, out lapDistPct, "CarIdxLapDistPct", carIdx);
-
-                    if (carIdx == PlayerCarIdx)
-                    { 
-                        try { speed = (double)raw.Telemetry["Speed"]; } catch { Debug.Assert(false); }
-                    }
-                    else
-                    {
-                        speed = ComputeDriverSpeed(driver.OldLapDistPct, lapDistPct, trackLength);
-                    }
-
-                    driver.Speed = speed;
                     driver.LapDistPct = lapDistPct;
                 }
                 else
@@ -582,6 +587,11 @@ namespace InsanePlugin
                     Debug.Assert(false);
                 }
             }
+
+            if (hasPaceCar)
+                InsaneAverageLapTime = avgLapTime / (driverCount - 1);
+            else
+                InsaneAverageLapTime = avgLapTime / driverCount;
 
             Driver player = null;
             if (DriversByCarIdx.TryGetValue(PlayerCarIdx, out player))
@@ -603,13 +613,46 @@ namespace InsanePlugin
                         {
                             driver.OldGapToPlayer = 0;
                             driver.GapToPlayer = 0;
-                            driver.PlayerGainTime = false;
+                            driver.DistanceToPlayer = 0;
+                            driver.PlayerGainTime = 0;
                         }
                         else
                         {
                             driver.OldGapToPlayer = driver.GapToPlayer;
-                            driver.GapToPlayer = CalculateCarGap(trackLength, player.LapDistPct, player.Speed, driver.LapDistPct, driver.Speed);
-                            driver.PlayerGainTime = driver.OldGapToPlayer < driver.GapToPlayer;
+                            var result = CalculateCarGap(trackLength, player.LapDistPct, player.LapsComplete, driver.LapDistPct, driver.LapsComplete);
+                            driver.GapToPlayer = result.gap;
+                            driver.DistanceToPlayer = result.distance;
+
+                            double oldGap, gap;
+                            if (driver.OldGapToPlayer < 0)
+                                oldGap = driver.OldGapToPlayer * -1;
+                            else
+                                oldGap = driver.OldGapToPlayer;
+                            
+                            if (driver.GapToPlayer < 0)
+                                gap = driver.GapToPlayer * -1;
+                            else
+                                gap = driver.GapToPlayer;
+
+
+                            if (driver.DistanceToPlayer >= 0)
+                            {
+                                if (oldGap > gap)
+                                    driver.PlayerGainTime = 1;
+                                else if (oldGap < gap)
+                                    driver.PlayerGainTime = 2;
+                                else
+                                    driver.PlayerGainTime = 0;
+                            }
+                            else
+                            {
+                                if (oldGap < gap)
+                                    driver.PlayerGainTime = 1;
+                                else if (oldGap > gap)
+                                    driver.PlayerGainTime = 2;
+                                else
+                                    driver.PlayerGainTime = 0;
+                            }
                         }
                     }
                     else
@@ -620,49 +663,50 @@ namespace InsanePlugin
             }
         }
 
-        private double ComputeDriverSpeed(double oldPct, double newPct, double trackLength)
-        {
-            double oldPositionOnTrack = oldPct * trackLength;
-            double newPositionOnTrack = newPct * trackLength;
+        //private double ComputeDriverSpeed(double oldPct, double newPct, double trackLength)
+        //{
+        //    double oldPositionOnTrack = oldPct * trackLength;
+        //    double newPositionOnTrack = newPct * trackLength;
 
-            double distance = newPositionOnTrack - oldPositionOnTrack;
-            if (distance < 0)
-                distance += trackLength;
+        //    double distance = newPositionOnTrack - oldPositionOnTrack;
+        //    if (distance < 0)
+        //        distance += trackLength;
 
-            return distance / mRealUpdateInterval.TotalSeconds;
-        }
+        //    return distance / mRealUpdateInterval.TotalSeconds;
+        //}
 
-        private double CalculateCarGap(double trackLength,
-            double playerPosition, double playerSpeed,
-            double driverPosition, double driverSpeed)
+        private (double distance, double gap) CalculateCarGap(double trackLength,
+            double playerPosition, double playerLapsCompleted,
+            double driverPosition, double driverLapsCompleted)
         {
             double playerDistance = playerPosition * trackLength;
             double driverDistance = driverPosition * trackLength;
 
-            double delta = driverDistance - playerDistance;
-            if (delta > trackLength / 2)
-                delta -= trackLength;
-            else if (delta < -trackLength / 2)
-                delta += trackLength;
+            double distance = driverDistance - playerDistance;
+            if (distance > trackLength / 2)
+                distance -= trackLength;
+            else if (distance < -trackLength / 2)
+                distance += trackLength;
 
-            double relativeSpeed;
-            double gap;
-            if (delta >= 0)
+            double playerTime, driverTime;
+            if (ResultsAverageLapTime > 0)
             {
-                relativeSpeed = playerSpeed - driverSpeed;
-                gap = delta / relativeSpeed;
-                if (gap < 0)
-                    gap = gap * -1;
+                playerTime = ResultsAverageLapTime * playerPosition;
+                driverTime = ResultsAverageLapTime * driverPosition;
             }
             else
             {
-                relativeSpeed = driverSpeed - playerSpeed;
-                gap = delta / relativeSpeed;
-                if (gap > 0)
-                    gap = gap * -1;
+                playerTime = InsaneAverageLapTime * playerPosition;
+                driverTime = InsaneAverageLapTime * driverPosition;
             }
 
-            return gap;
+            double gap;
+            if (distance >= 0)
+                gap = driverTime - playerTime;
+            else
+                gap = playerTime - driverTime;
+
+            return (distance, gap);
         }
 
         private void UpdateLivePositionInClass(ref GameData data)
