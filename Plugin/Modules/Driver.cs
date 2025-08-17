@@ -1,5 +1,8 @@
 ﻿using GameReaderCommon;
 using SimHub.Plugins;
+using SimHub.Plugins.DataPlugins.ShakeItV3.UI.Effects;
+using SimHub.Plugins.OutputPlugins.GraphicalDash.Behaviors.DoubleText.Imp;
+using SimHub.Plugins.OutputPlugins.GraphicalDash.Models.BuiltIn;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +15,9 @@ namespace InsanePlugin
 
     public class AverageLapTime
     {
-        private readonly Queue<TimeSpan> _lapTimes = new Queue<TimeSpan>();
-        private readonly int _maxLapCount;
-        private int _currentLap = -1;
+        private readonly Queue<TimeSpan> mLapTimes = new Queue<TimeSpan>();
+        private readonly int mMaxLapCount;
+        private int mCurrentLap = -1;
 
         public AverageLapTime(int lapCount)
         {
@@ -22,49 +25,50 @@ namespace InsanePlugin
             {
                 throw new ArgumentOutOfRangeException(nameof(lapCount), "Lap count must be greater than zero.");
             }
-            _maxLapCount = lapCount;
+            mMaxLapCount = lapCount;
         }
 
         public void AddLapTime(int currentLap, TimeSpan lapTime)
         {
-            if (currentLap == _currentLap)
+            if (currentLap == mCurrentLap)
                 return;
 
             if (lapTime <= TimeSpan.Zero)
                 return;
 
-            if (_lapTimes.Count == _maxLapCount)
+            if (mLapTimes.Count == mMaxLapCount)
             {
-                _lapTimes.Dequeue();
+                mLapTimes.Dequeue();
             }
-            _lapTimes.Enqueue(lapTime);
-            _currentLap = currentLap;
+            mLapTimes.Enqueue(lapTime);
+            mCurrentLap = currentLap;
         }
 
         public TimeSpan GetAverageLapTime()
         {
-            if (_lapTimes.Count == 0)
+            if (mLapTimes.Count == 0)
             {
                 return TimeSpan.Zero;
             }
 
-            long averageTicks = (long)_lapTimes.Average(ts => ts.Ticks);
+            long averageTicks = (long)mLapTimes.Average(ts => ts.Ticks);
             return new TimeSpan(averageTicks);
         }
     }
 
     public class Driver
     {
-        // Index in the array AllSessionData["DriverInfo"]["Drivers"]
         public int DriverInfoIdx { get; set; } = -1;
         public int CarIdx { get; set; } = -1;
         public string CarId { get; set; } = "";
+        public string CarNumber { get; set; } = "";
         public int FlairId { get; set; } = 0;
         public int CarClassId { get; set; } = 0;
         public int EnterPitLapUnconfirmed { get; set; } = -1;
         public int EnterPitLap { get; set; } = -1;
         public int ExitPitLap { get; set; } = -1;
         public bool OutLap { get; set; } = false;
+        public bool IsInPit { get; set; } = false;
         public DateTime InPitSince { get; set; } = DateTime.MinValue;
         public DateTime InPitBoxSince { get; set; } = DateTime.MinValue;
         public TimeSpan LastPitStopDuration { get; set; } = TimeSpan.Zero;
@@ -86,8 +90,16 @@ namespace InsanePlugin
         public int TeamIncidentCount { get; set; } = 0;
         public int IRating { get; set; } = 0;
         public int IRatingChange { get; set; } = 0;
-    }
+        public double Speed { get; set; } = 0;
+        public double OldLapDistPct { get; set; } = 0;
+        public double LapDistPct { get; set; } = 0;
+        public double OldGapToPlayer { get; set; } = 0;
+        public double GapToPlayer { get; set; } = 0;
+        public bool PlayerGainTime { get; set; } = false;
 
+        
+    }
+    
     public class ClassLeaderboard
     {
         public LeaderboardCarClassDescription CarClassDescription { get; set; } = null;
@@ -96,18 +108,19 @@ namespace InsanePlugin
 
     public class DriverModule : PluginModuleBase
     {
-        private DateTime _lastUpdateTime = DateTime.MinValue;
-        private TimeSpan _updateInterval = TimeSpan.FromMilliseconds(500);
-        private TimeSpan _minTimeInPit = TimeSpan.FromMilliseconds(2500);
+        private DateTime mLastUpdateTime = DateTime.MinValue;
+        private TimeSpan mUpdateInterval = TimeSpan.FromMilliseconds(100);
+        private TimeSpan mMinTimeInPit = TimeSpan.FromMilliseconds(2500);
+        private TimeSpan mRealUpdateInterval = TimeSpan.FromMilliseconds(0);
 
-        private SessionModule _sessionModule = null;
-        private CarModule _carModule = null;
-        private FlairModule _flairModule = null;
-        private StandingsModule _standingsModule = null;
-        private RelativeModule _relativeModule = null;
+        private SessionModule mSessionModule = null;
+        private CarModule mCarModule = null;
+        private FlairModule mFlairModule = null;
+        private StandingsModule mStandingsModule = null;
+        private RelativeModule mRelativeModule = null;
 
-        private SessionState _sessionState = new SessionState();
-        private bool _qualResultsUpdated = false;
+        private SessionState mSessionState = new SessionState();
+        private bool mQualResultsUpdated = false;
 
         public const int MaxDrivers = 64;
 
@@ -118,6 +131,7 @@ namespace InsanePlugin
         public Dictionary<int, Driver> DriversByCarIdx { get; private set; } = new Dictionary<int, Driver>();
 
         public int PlayerCarIdx { get; set; } = -1;
+        public bool IsInPit { get; internal set; } = false;
         public bool PlayerOutLap { get; internal set; } = false;
         public int PlayerStintLap { get; internal set; } = 0;
         public string PlayerNumber { get; internal set; } = "";
@@ -140,38 +154,40 @@ namespace InsanePlugin
 
         public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
-            _sessionModule = plugin.GetModule<SessionModule>();
-            _carModule = plugin.GetModule<CarModule>();
-            _flairModule = plugin.GetModule<FlairModule>();
-            _standingsModule = plugin.GetModule<StandingsModule>();
-            _relativeModule = plugin.GetModule<RelativeModule>();
+            mSessionModule = plugin.GetModule<SessionModule>();
+            mCarModule = plugin.GetModule<CarModule>();
+            mFlairModule = plugin.GetModule<FlairModule>();
+            mStandingsModule = plugin.GetModule<StandingsModule>();
+            mRelativeModule = plugin.GetModule<RelativeModule>();
 
+            plugin.AttachDelegate(name: "Player.PositionInClass", valueProvider: () => PlayerPositionInClass);
+            plugin.AttachDelegate(name: "Player.LivePositionInClass", valueProvider: () => PlayerLivePositionInClass);
             plugin.AttachDelegate(name: "Player.OutLap", valueProvider: () => PlayerOutLap);
             plugin.AttachDelegate(name: "Player.StintLap", valueProvider: () => PlayerStintLap);
             plugin.AttachDelegate(name: "Player.Number", valueProvider: () => PlayerNumber);
             plugin.AttachDelegate(name: "Player.CarBrand", valueProvider: () => PlayerCarBrand);
             plugin.AttachDelegate(name: "Player.CountryCode", valueProvider: () => PlayerCountryCode);
-            plugin.AttachDelegate(name: "Player.PositionInClass", valueProvider: () => PlayerPositionInClass);
-            plugin.AttachDelegate(name: "Player.LivePositionInClass", valueProvider: () => PlayerLivePositionInClass);
             plugin.AttachDelegate(name: "Player.LastLapTime", valueProvider: () => PlayerLastLapTime);
             plugin.AttachDelegate(name: "Player.BestLapTime", valueProvider: () => PlayerBestLapTime);
             plugin.AttachDelegate(name: "Player.CurrentLap", valueProvider: () => PlayerCurrentLap);
             plugin.AttachDelegate(name: "Player.TeamIncidentCount", valueProvider: () => PlayerTeamIncidentCount);
             plugin.AttachDelegate(name: "Player.iRatingChange", valueProvider: () => PlayerIRatingChange);
+            plugin.AttachDelegate(name: "Player.IsInPit", valueProvider: () => IsInPit);
         }
 
         public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
-            if (data.FrameTime - _lastUpdateTime < _updateInterval) return;
-            _lastUpdateTime = data.FrameTime;
+            mRealUpdateInterval = data.FrameTime - mLastUpdateTime;
+            if (mRealUpdateInterval < mUpdateInterval) return;
+            mLastUpdateTime = data.FrameTime;
 
             dynamic raw = data.NewData.GetRawDataObject();
             if (raw == null) return;
 
-            _sessionState.Update(ref data);
+            mSessionState.Update(ref data);
 
             // Reset when changing/restarting session
-            if (_sessionState.SessionChanged)
+            if (mSessionState.SessionChanged)
             {
                 Drivers = new Dictionary<string, Driver>();
                 DriversByCarIdx = new Dictionary<int, Driver>();
@@ -191,7 +207,8 @@ namespace InsanePlugin
                 PlayerCurrentLap = 0;
                 PlayerTeamIncidentCount = 0;
                 PlayerIRatingChange = 0;
-                _qualResultsUpdated = false;
+                IsInPit = false;
+                mQualResultsUpdated = false;
             }
 
             UpdateDrivers(ref data);
@@ -214,6 +231,7 @@ namespace InsanePlugin
                     continue;
                 }
 
+                driver.IsInPit = opponent.IsCarInPitLane || opponent.IsCarInPit;
                 // Evaluate the lap when they entered the pit lane
                 if (opponent.IsCarInPitLane)
                 {
@@ -226,7 +244,7 @@ namespace InsanePlugin
 
                     // If they are in the pit for a very short time then we consider that a glitch in telemetry and ignore it.
                     if (driver.InPitSince > DateTime.MinValue &&
-                        driver.InPitSince + _minTimeInPit < DateTime.Now)
+                        driver.InPitSince + mMinTimeInPit < DateTime.Now)
                     {
                         driver.EnterPitLap = driver.EnterPitLapUnconfirmed;
                         driver.OutLap = false;
@@ -253,8 +271,8 @@ namespace InsanePlugin
                     // Ignore pit exit before the race start.
                     if (opponent.IsConnected &&
                         driver.InPitSince > DateTime.MinValue &&
-                        !(_sessionModule.Race && !_sessionModule.RaceStarted) &&
-                        driver.InPitSince + _minTimeInPit < DateTime.Now)
+                        !(mSessionModule.Race && !mSessionModule.RaceStarted) &&
+                        driver.InPitSince + mMinTimeInPit < DateTime.Now)
                     {
                         driver.ExitPitLap = opponent.CurrentLap ?? -1;
 
@@ -274,14 +292,14 @@ namespace InsanePlugin
                     {
                         driver.StintLap = (opponent.CurrentLap ?? 0) - driver.ExitPitLap + 1;
                     }
-                    else if (_sessionModule.Race && !_sessionModule.JoinedRaceInProgress)
+                    else if (mSessionModule.Race && !mSessionModule.JoinedRaceInProgress)
                     {
                         // When we join a race session in progress, we cannot know when the driver exited the pit, so StintLap should stay 0.
                         driver.StintLap = opponent.CurrentLap ?? 0;
                     }
                 }
 
-                if (_sessionModule.Race)
+                if (mSessionModule.Race)
                 {
                     double playerCarTowTime = 0;
                     try { playerCarTowTime = (double)raw.Telemetry["PlayerCarTowTime"]; } catch { }
@@ -293,7 +311,7 @@ namespace InsanePlugin
                             opponent.CurrentLapHighPrecision.HasValue && opponent.CurrentLapHighPrecision.Value > -1)
                         {
                             // Use avg speed because in SimHub we can step forward in time in a recorded replay.
-                            double avgSpeedKph = ComputeAvgSpeedKph(data.NewData.TrackLength, driver.CurrentLapHighPrecision, opponent.CurrentLapHighPrecision.Value, _sessionState.DeltaTime);
+                            double avgSpeedKph = ComputeAvgSpeedKph(data.NewData.TrackLength, driver.CurrentLapHighPrecision, opponent.CurrentLapHighPrecision.Value, mSessionState.DeltaTime);
                             bool teleportingToPit = avgSpeedKph > 500 && opponent.IsCarInPit;
                             bool playerTowing = opponent.IsPlayer && playerCarTowTime > 0;
 
@@ -360,10 +378,11 @@ namespace InsanePlugin
                 if (opponent.IsPlayer)
                 {
                     PlayerOutLap = driver.OutLap;
+                    IsInPit = opponent.IsCarInPitLane || opponent.IsCarInPit;
                     PlayerStintLap = driver.StintLap;
                     PlayerNumber = opponent.CarNumber;
-                    PlayerCarBrand = _carModule.GetCarBrand(driver.CarId, opponent.CarName);
-                    PlayerCountryCode = _flairModule.GetCountryCode(driver.FlairId);
+                    PlayerCarBrand = mCarModule.GetCarBrand(driver.CarId, opponent.CarName);
+                    PlayerCountryCode = mFlairModule.GetCountryCode(driver.FlairId);
                     PlayerPositionInClass = opponent.Position > 0 ? opponent.PositionInClass : 0;
                     PlayerLastLapTime = driver.LastLapTime;
                     PlayerBestLapTime = driver.BestLapTime;
@@ -371,7 +390,7 @@ namespace InsanePlugin
                     PlayerCurrentLap = opponent.CurrentLap ?? 0;
                     PlayerTeamIncidentCount = driver.TeamIncidentCount;
 
-                    if (_sessionModule.Race)
+                    if (mSessionModule.Race)
                     {
                         PlayerHadWhiteFlag = PlayerHadWhiteFlag || data.NewData.Flag_White == 1;
                         PlayerHadCheckeredFlag = PlayerHadCheckeredFlag || data.NewData.Flag_Checkered == 1;
@@ -426,7 +445,7 @@ namespace InsanePlugin
         private void UpdateQualResult(ref GameData data)
         {
             // Optimization: Only update the qualifying results once before the race starts.
-            if (_qualResultsUpdated || !_sessionModule.Race)
+            if (mQualResultsUpdated || !mSessionModule.Race)
                 return;
 
             RawDataHelper.TryGetSessionData<List<object>>(ref data, out List<object> qualResults, "QualifyResultsInfo", "Results");
@@ -448,7 +467,7 @@ namespace InsanePlugin
                     driver.QualLapTime = fastestTime > 0 ? TimeSpan.FromSeconds(fastestTime) : TimeSpan.Zero;
                 }
 
-                _qualResultsUpdated = true;
+                mQualResultsUpdated = true;
                 return;
             }
 
@@ -475,7 +494,7 @@ namespace InsanePlugin
                     driver.QualLapTime = fastestTime > 0 ? TimeSpan.FromSeconds(fastestTime) : TimeSpan.Zero;
                 }
 
-                _qualResultsUpdated = true;
+                mQualResultsUpdated = true;
             }
         }
 
@@ -487,6 +506,9 @@ namespace InsanePlugin
 
             RawDataHelper.TryGetSessionData<int>(ref data, out int playerCarIdx, "DriverInfo", "DriverCarIdx");
             PlayerCarIdx = playerCarIdx;
+
+            double trackLength = 0;
+            try { trackLength = (double)raw.Telemetry["LapDist"]; } catch { Debug.Assert(false); }
 
             int driverCount = 0;
             try { driverCount = (int)raw.AllSessionData["DriverInfo"]["Drivers"].Count; } catch { Debug.Assert(false); }
@@ -528,6 +550,7 @@ namespace InsanePlugin
                     driver.DriverInfoIdx = i;
                     driver.CarIdx = carIdx;
                     driver.CarId = carPath;
+                    driver.CarNumber = carNumber;
                     driver.FlairId = flairId;
                     driver.CarClassId = carClassId;
                     driver.TeamIncidentCount = teamIncidentCount;
@@ -536,12 +559,110 @@ namespace InsanePlugin
                     driver.BestLapTime = bestLapTime > 0 ? TimeSpan.FromSeconds(bestLapTime) : TimeSpan.Zero;
                     driver.SessionFlags = sessionFlags;
                     driver.PositionInClass = classPosition;
+                    driver.OldLapDistPct = driver.LapDistPct;
+
+                    double speed = 0.0;
+                    double lapDistPct = 0.0;
+                    RawDataHelper.TryGetTelemetryData<double>(ref data, out lapDistPct, "CarIdxLapDistPct", carIdx);
+
+                    if (carIdx == PlayerCarIdx)
+                    { 
+                        try { speed = (double)raw.Telemetry["Speed"]; } catch { Debug.Assert(false); }
+                    }
+                    else
+                    {
+                        speed = ComputeDriverSpeed(driver.OldLapDistPct, lapDistPct, trackLength);
+                    }
+
+                    driver.Speed = speed;
+                    driver.LapDistPct = lapDistPct;
                 }
                 else
                 {
                     Debug.Assert(false);
                 }
             }
+
+            Driver player = null;
+            if (DriversByCarIdx.TryGetValue(PlayerCarIdx, out player))
+            {
+                for (int i = 0; i < driverCount; i++)
+                {
+                    int carIdx = -1;
+                    try { carIdx = int.Parse(raw.AllSessionData["DriverInfo"]["Drivers"][i]["CarIdx"]); } catch { Debug.Assert(false); }
+
+                    string carNumber = string.Empty;
+                    try { carNumber = raw.AllSessionData["DriverInfo"]["Drivers"][i]["CarNumber"]; } catch { Debug.Assert(false); }
+
+                    if (carIdx >= 0 && carNumber.Length > 0)
+                    {
+                        if (!Drivers.TryGetValue(carNumber, out Driver driver))
+                            continue;
+
+                        if (carIdx == PlayerCarIdx)
+                        {
+                            driver.OldGapToPlayer = 0;
+                            driver.GapToPlayer = 0;
+                            driver.PlayerGainTime = false;
+                        }
+                        else
+                        {
+                            driver.OldGapToPlayer = driver.GapToPlayer;
+                            driver.GapToPlayer = CalculateCarGap(trackLength, player.LapDistPct, player.Speed, driver.LapDistPct, driver.Speed);
+                            driver.PlayerGainTime = driver.OldGapToPlayer < driver.GapToPlayer;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Assert(false);
+                    }
+                }
+            }
+        }
+
+        private double ComputeDriverSpeed(double oldPct, double newPct, double trackLength)
+        {
+            double oldPositionOnTrack = oldPct * trackLength;
+            double newPositionOnTrack = newPct * trackLength;
+
+            double distance = newPositionOnTrack - oldPositionOnTrack;
+            if (distance < 0)
+                distance += trackLength;
+
+            return distance / mRealUpdateInterval.TotalSeconds;
+        }
+
+        private double CalculateCarGap(double trackLength,
+            double playerPosition, double playerSpeed,
+            double driverPosition, double driverSpeed)
+        {
+            double playerDistance = playerPosition * trackLength;
+            double driverDistance = driverPosition * trackLength;
+
+            double delta = driverDistance - playerDistance;
+            if (delta > trackLength / 2)
+                delta -= trackLength;
+            else if (delta < -trackLength / 2)
+                delta += trackLength;
+
+            double relativeSpeed;
+            double gap;
+            if (delta >= 0)
+            {
+                relativeSpeed = playerSpeed - driverSpeed;
+                gap = delta / relativeSpeed;
+                if (gap < 0)
+                    gap = gap * -1;
+            }
+            else
+            {
+                relativeSpeed = driverSpeed - playerSpeed;
+                gap = delta / relativeSpeed;
+                if (gap > 0)
+                    gap = gap * -1;
+            }
+
+            return gap;
         }
 
         private void UpdateLivePositionInClass(ref GameData data)
@@ -567,18 +688,18 @@ namespace InsanePlugin
                     leaderboard.Drivers.Add((opponent, driver));
                 }
 
-                if (_sessionModule.Race)
+                if (mSessionModule.Race)
                 {
-                    if (!_sessionModule.RaceStarted)
+                    if (!mSessionModule.RaceStarted)
                     {
                         // Before the start keep the leaderboard sorted by qual position
                         leaderboard.Drivers = leaderboard.Drivers.OrderBy(p => p.Item2.QualPositionInClass).ToList();
                     }
-                    else if (!_sessionModule.RaceFinished)
+                    else if (!mSessionModule.RaceFinished)
                     {
                         // During the race sort on position on track for a live leaderboard.
                         // Except for ovals under caution, show the official position.
-                        if (!(_sessionModule.Oval && data.NewData.Flag_Yellow == 1))
+                        if (!(mSessionModule.Oval && data.NewData.Flag_Yellow == 1))
                         {
                             leaderboard.Drivers = leaderboard.Drivers.OrderByDescending(p => p.Item2.CurrentLapHighPrecision).ToList();
                         }
@@ -594,9 +715,9 @@ namespace InsanePlugin
                     Opponent opponent = leaderboard.Drivers[i].Item1;
                     Driver driver = leaderboard.Drivers[i].Item2;
 
-                    if (_sessionModule.Race)
+                    if (mSessionModule.Race)
                     {
-                        if (!_sessionModule.RaceStarted)
+                        if (!mSessionModule.RaceStarted)
                         {
                             driver.LivePositionInClass = driver.QualPositionInClass;
                         }
@@ -681,11 +802,7 @@ namespace InsanePlugin
 
         private void UpdateIRatingChange(ref GameData data)
         {
-            if (!(_sessionModule.Race))
-                return;
-
-            // Optim: Don't calculate if the iRating change is not visible.
-            if (!_standingsModule.Settings.IRatingChangeVisible && !_relativeModule.Settings.IRatingChangeVisible)
+            if (!(mSessionModule.Race))
                 return;
 
             foreach (var group in Drivers.Values.GroupBy(d => d.CarClassId))
@@ -694,7 +811,7 @@ namespace InsanePlugin
                 int countInClass = group.Count();
                 var raceResults = new List<RaceResult<Driver>>();
 
-                if (!_sessionModule.RaceStarted)
+                if (!mSessionModule.RaceStarted)
                 {
                     // Consider all drivers as if they finished in their qualifying position.
                     foreach (var driver in group)

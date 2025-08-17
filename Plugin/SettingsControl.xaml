@@ -9,12 +9,6 @@
 
                 <styles:SHSection Title="STANDINGS OVERLAY OPTIONS" ShowSeparator="True">
                     <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Hide the standings leaderboard when the replay is playing (i.e. when out of the car)" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.HideInReplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Hide in replay
-                        </styles:SHToggleCheckbox>
 
                         <styles:SHToggleCheckbox 
                             ToolTip="Show the header with session information" 
@@ -57,12 +51,6 @@
                         </styles:SHToggleCheckbox>
 
                         <StackPanel Orientation="Horizontal">
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show the driver's safety rating" 
-                                HorizontalAlignment="Left" Margin="0,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.SafetyRatingVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show safety rating
-                            </styles:SHToggleCheckbox>
 
                             <styles:SHToggleCheckbox 
                                 ToolTip="Show the driver's iRating" 
@@ -203,94 +191,6 @@
                         <StackPanel Orientation="Horizontal">
                             <ui:TitledSlider Width="400" Title="Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="RELATIVE OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Hide the relative when the replay is playing (i.e. when out of the car)" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.HideInReplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Hide in replay
-                        </styles:SHToggleCheckbox>
-                        
-                        <StackPanel Orientation="Horizontal">
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show the header with session information" 
-                                HorizontalAlignment="Left" Margin="0,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.HeaderVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show header
-                            </styles:SHToggleCheckbox>
-
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show the footer with additional session information" 
-                                HorizontalAlignment="Left" Margin="8,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.FooterVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show footer
-                            </styles:SHToggleCheckbox>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Header Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[RelativeModule].Settings.HeaderOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider HorizontalAlignment="Left" Width="400" Title="Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[RelativeModule].Settings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ToolTip="Maximum number of visible rows ahead and behind the player"/>
-                            <ui:TitledSlider HorizontalAlignment="Left" Width="400" Title="Max Row Count (Ahead and Behind)" Maximum="5" Minimum="1" Value="{Binding Plugin.Modules[RelativeModule].Settings.MaxRows, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ToolTip="Maximum number of visible rows ahead and behind the player"/>
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Show the country flag corresponding to the driver's flair" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.CountryFlagVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Show country flag
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show the driver's safety rating" 
-                                HorizontalAlignment="Left" Margin="0,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.SafetyRatingVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show safety rating
-                            </styles:SHToggleCheckbox>
-
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show the driver's iRating" 
-                                HorizontalAlignment="Left" Margin="4,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.IRatingVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show iRating
-                            </styles:SHToggleCheckbox>
-
-                            <styles:SHToggleCheckbox 
-                                ToolTip="Show the driver's iRating gain/loss if they were to finish the race in their current position" 
-                                HorizontalAlignment="Left" Margin="4,0,4,8"
-                                IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.IRatingChangeVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                Show iRating gain/loss in race
-                            </styles:SHToggleCheckbox>
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Show the car brand logo column when available" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.CarLogoVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Show car logo
-                        </styles:SHToggleCheckbox>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Highlight the player row with a bright background color" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[RelativeModule].Settings.HighlightPlayerRow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Highlight player row
-                        </styles:SHToggleCheckbox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider MinWidth="400" Width="400" Title="Alternate row background color (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[RelativeModule].Settings.AlternateRowBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ToolTip="Use a different background color to make alternate rows easier to read. 100% for maximum contrast, 0% to disable."/>
-                            <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[RelativeModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </StackPanel>
                 </styles:SHSection>

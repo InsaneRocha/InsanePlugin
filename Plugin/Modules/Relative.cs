@@ -1,31 +1,16 @@
 ﻿using GameReaderCommon;
 using SimHub.Plugins;
+using SimHub.Plugins.OutputPlugins.GraphicalDash.Models;
+using SimHub.Plugins.OutputPlugins.Nextion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Security.Policy;
+using Opponent = GameReaderCommon.Opponent;
 
 namespace InsanePlugin
 {
-    public class RelativeSettings : ModuleSettings
-    {
-        public bool HideInReplay { get; set; } = true;
-        public int Width { get; set; } = 80;
-        public int MaxRows { get; set; } = 4;
-        public bool HeaderVisible { get; set; } = true;
-        public int HeaderOpacity { get; set; } = 90;
-        public bool FooterVisible { get; set; } = false;
-        public bool CarLogoVisible { get; set; } = true;
-        public bool CountryFlagVisible { get; set; } = true;
-        public bool SafetyRatingVisible { get; set; } = true;
-        public bool IRatingVisible { get; set; } = true;
-        public bool IRatingChangeVisible { get; set; } = true;
-        public int AlternateRowBackgroundColor { get; set; } = 5;
-        public bool HighlightPlayerRow { get; set; } = true;
-        public int BackgroundOpacity { get; set; } = 60;
-    }
-
     public class RelativeRow
     {
         public bool RowVisible { get; set; } = false;
@@ -42,125 +27,148 @@ namespace InsanePlugin
         public string License { get; set; } = string.Empty;
         public double SafetyRating { get; set; } = 0;
         public double GapToPlayer { get; set; } = 0;
+        public double InsaneGapToPlayer { get; set; } = 0;
+        public bool PlayerGainTime { get; set; } = false;
         public string GapToPlayerCombined { get; set; } = string.Empty;
         public double CurrentLapHighPrecision { get; set; } = 0;
         public TimeSpan LastLapTime { get; set; } = TimeSpan.Zero;
         public int SessionFlags { get; set; } = 0;
+        public bool IsInPit { get; set; } = false;
     }
 
     public class RelativeAhead
     {
-        public const int MaxRows = 5;
         public List<RelativeRow> Rows { get; internal set; }
 
         public RelativeAhead()
         {
-            Rows = new List<RelativeRow>(Enumerable.Range(0, MaxRows).Select(x => new RelativeRow()));
+            Rows = new List<RelativeRow>(Enumerable.Range(0, 3).Select(x => new RelativeRow()));
         }
     }
     public class RelativeBehind
     {
-        public const int MaxRows = 5;
         public List<RelativeRow> Rows { get; internal set; }
 
         public RelativeBehind()
         {
-            Rows = new List<RelativeRow>(Enumerable.Range(0, MaxRows).Select(x => new RelativeRow()));
+            Rows = new List<RelativeRow>(Enumerable.Range(0, 3).Select(x => new RelativeRow()));
         }
     }
 
     public class RelativeModule : PluginModuleBase
     {
-        private DateTime _lastUpdateTime = DateTime.MinValue;
-        private TimeSpan _updateInterval = TimeSpan.FromMilliseconds(500);
+        private DateTime mLastUpdateTime = DateTime.MinValue;
+        private TimeSpan mUpdateInterval = TimeSpan.FromMilliseconds(100);
 
-        private DriverModule _driverModule = null;
-        private CarModule _carModule = null;
-        private FlairModule _flairModule = null;
-
-        public RelativeSettings Settings { get; set; }
+        private DriverModule mDriverModule = null;
+        private CarModule mCarModule = null;
+        private FlairModule mFlairModule = null;
 
         public RelativeAhead Ahead = new RelativeAhead();
         public RelativeBehind Behind = new RelativeBehind();
 
         public override void Init(PluginManager pluginManager, InsanePlugin plugin)
         {
-            _driverModule = plugin.GetModule<DriverModule>();
-            _carModule = plugin.GetModule<CarModule>();
-            _flairModule = plugin.GetModule<FlairModule>();
+            mDriverModule = plugin.GetModule<DriverModule>();
+            mCarModule = plugin.GetModule<CarModule>();
+            mFlairModule = plugin.GetModule<FlairModule>();
 
-            Settings = plugin.ReadCommonSettings<RelativeSettings>("RelativeSettings", () => new RelativeSettings());
-            plugin.AttachDelegate(name: "Relative.HideInReplay", valueProvider: () => Settings.HideInReplay);
-            plugin.AttachDelegate(name: "Relative.Width", valueProvider: () => Settings.Width);
-            plugin.AttachDelegate(name: "Relative.MaxRows", valueProvider: () => Settings.MaxRows);
-            plugin.AttachDelegate(name: "Relative.HeaderVisible", valueProvider: () => Settings.HeaderVisible);
-            plugin.AttachDelegate(name: "Relative.HeaderOpacity", valueProvider: () => Settings.HeaderOpacity);
-            plugin.AttachDelegate(name: "Relative.FooterVisible", valueProvider: () => Settings.FooterVisible);
-            plugin.AttachDelegate(name: "Relative.CarLogoVisible", valueProvider: () => Settings.CarLogoVisible);
-            plugin.AttachDelegate(name: "Relative.CountryFlagVisible", valueProvider: () => Settings.CountryFlagVisible);
-            plugin.AttachDelegate(name: "Relative.SafetyRatingVisible", valueProvider: () => Settings.SafetyRatingVisible);
-            plugin.AttachDelegate(name: "Relative.iRatingVisible", valueProvider: () => Settings.IRatingVisible);
-            plugin.AttachDelegate(name: "Relative.iRatingChangeVisible", valueProvider: () => Settings.IRatingChangeVisible);
-            plugin.AttachDelegate(name: "Relative.AlternateRowBackgroundColor", valueProvider: () => Settings.AlternateRowBackgroundColor);
-            plugin.AttachDelegate(name: "Relative.HighlightPlayerRow", valueProvider: () => Settings.HighlightPlayerRow);
-            plugin.AttachDelegate(name: "Relative.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
-
-            InitRelative(plugin, "Ahead", Ahead.Rows, RelativeAhead.MaxRows);
-            InitRelative(plugin, "Behind", Behind.Rows, RelativeBehind.MaxRows);
+            InitRelative(plugin, "Ahead", Ahead.Rows);
+            InitRelative(plugin, "Behind", Behind.Rows);
         }
 
-        private void InitRelative(InsanePlugin plugin, string aheadBehind, List<RelativeRow> rows, int maxRows)
+        private void InitRelative(InsanePlugin plugin, string aheadBehind, List<RelativeRow> rows)
         {
-            for (int rowIdx = 0; rowIdx < maxRows; rowIdx++)
+            for (int rowIdx = 0; rowIdx < 3; rowIdx++)
             {
                 RelativeRow row = rows[rowIdx];
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.RowVisible", valueProvider: () => row.RowVisible);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.LivePositionInClass", valueProvider: () => row.LivePositionInClass);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.ClassColor", valueProvider: () => row.ClassColor);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.ClassTextColor", valueProvider: () => row.ClassTextColor);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.Number", valueProvider: () => row.Number);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.Name", valueProvider: () => row.Name);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.CarBrand", valueProvider: () => row.CarBrand);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.CountryCode", valueProvider: () => row.CountryCode);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.OutLap", valueProvider: () => row.OutLap);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.iRating", valueProvider: () => row.iRating);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.iRatingChange", valueProvider: () => row.iRatingChange);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.License", valueProvider: () => row.License);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.SafetyRating", valueProvider: () => row.SafetyRating);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.GapToPlayer", valueProvider: () => row.GapToPlayer);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.GapToPlayerCombined", valueProvider: () => row.GapToPlayerCombined);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.CurrentLapHighPrecision", valueProvider: () => row.CurrentLapHighPrecision);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.LastLapTime", valueProvider: () => row.LastLapTime);
-                plugin.AttachDelegate(name: $"Relative.{aheadBehind}{rowIdx:00}.SessionFlags", valueProvider: () => row.SessionFlags);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.RowVisible.{rowIdx:0}", valueProvider: () => row.RowVisible);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.LivePositionInClass.{rowIdx:0}", valueProvider: () => row.LivePositionInClass);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.ClassColor.{rowIdx:0}", valueProvider: () => row.ClassColor);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.ClassTextColor.{rowIdx:0}", valueProvider: () => row.ClassTextColor);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.Number.{rowIdx:0}", valueProvider: () => row.Number);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.Name.{rowIdx:0}", valueProvider: () => row.Name);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.CarBrand.{rowIdx:0}", valueProvider: () => row.CarBrand);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.CountryCode.{rowIdx:0}", valueProvider: () => row.CountryCode);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.OutLap.{rowIdx:0}", valueProvider: () => row.OutLap);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.iRating.{rowIdx:0}", valueProvider: () => row.iRating);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.iRatingChange.{rowIdx:0}", valueProvider: () => row.iRatingChange);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.License.{rowIdx:0}", valueProvider: () => row.License);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.SafetyRating.{rowIdx:0}", valueProvider: () => row.SafetyRating);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.GapToPlayer.{rowIdx:0}", valueProvider: () => row.GapToPlayer);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.InsaneGapToPlayer.{rowIdx:0}", valueProvider: () => row.InsaneGapToPlayer);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.PlayerGainTime.{rowIdx:0}", valueProvider: () => row.PlayerGainTime);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.GapToPlayerCombined.{rowIdx:0}", valueProvider: () => row.GapToPlayerCombined);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.CurrentLapHighPrecision.{rowIdx:0}", valueProvider: () => row.CurrentLapHighPrecision);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.LastLapTime.{rowIdx:0}", valueProvider: () => row.LastLapTime);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.SessionFlags.{rowIdx:0}", valueProvider: () => row.SessionFlags);
+                plugin.AttachDelegate(name: $"Relative.{aheadBehind}.IsInPit.{rowIdx:0}", valueProvider: () => row.IsInPit);
             }
         }
 
         public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
         {
-            if (data.FrameTime - _lastUpdateTime < _updateInterval) return;
-            _lastUpdateTime = data.FrameTime;
+            if (data.FrameTime - mLastUpdateTime < mUpdateInterval) return;
+            mLastUpdateTime = data.FrameTime;
 
-            UpdateRelative(ref data, Ahead.Rows, RelativeAhead.MaxRows, data.NewData.OpponentsAheadOnTrack);
-            UpdateRelative(ref data, Behind.Rows, RelativeBehind.MaxRows, data.NewData.OpponentsBehindOnTrack);
+            if (mDriverModule.Drivers != null)
+            {
+                List<Driver> driversAhead = mDriverModule.Drivers
+                    .Values
+                    .Where(d => d.GapToPlayer > 0)
+                    .OrderBy(d => d.GapToPlayer)
+                    .Take(3)
+                    .ToList();
+
+
+                List<Driver> driversbehind = mDriverModule.Drivers
+                    .Values
+                    .Where(d => d.GapToPlayer < 0)
+                    .OrderBy(d => d.GapToPlayer)
+                    .Take(3)
+                    .ToList();
+
+                if (driversAhead.Count < 3)
+                {
+                    do {
+                        driversAhead.Add(null);
+                    } while (driversAhead.Count != 3);
+                }
+
+                if (driversbehind.Count < 3)
+                {
+                    do
+                    {
+                        driversbehind.Add(null);
+                    } while (driversbehind.Count != 3);
+                }
+
+                UpdateRelative(ref data, Ahead.Rows, driversAhead, data.NewData.Opponents);
+                UpdateRelative(ref data, Behind.Rows, driversbehind, data.NewData.Opponents);
+            }
         }
 
-        public void UpdateRelative(ref GameData data, List<RelativeRow> rows, int maxRows, List<Opponent> opponents)
+        public void UpdateRelative(ref GameData data, List<RelativeRow> rows, List<Driver> drivers, List<Opponent> opponents)
         {
-            for (int rowIdx = 0; rowIdx < maxRows; rowIdx++)
+            for (int rowIdx = 0; rowIdx < 3; rowIdx++)
             {
                 RelativeRow row = rows[rowIdx];
 
-                if (rowIdx >= opponents.Count)
+                if (rowIdx >= drivers.Count)
                 {
                     BlankRow(row);
                     continue;
                 }
 
-                Opponent opponent = opponents[rowIdx];
-                Driver driver = null;
-                if (_driverModule.Drivers != null) _driverModule.Drivers.TryGetValue(opponent.CarNumber, out driver);
+                Driver driver = drivers[rowIdx];
+                if (driver == null)
+                {
+                    BlankRow(row);
+                    continue;
+                }
 
-                if (driver == null || !IsValidRow(opponent))
+                Opponent opponent = opponents.First(d => d.CarNumber == driver.CarNumber);
+                if (opponent == null)
                 {
                     BlankRow(row);
                     continue;
@@ -172,23 +180,25 @@ namespace InsanePlugin
                 row.ClassTextColor = opponent.CarClassTextColor;
                 row.Number = opponent.CarNumber;
                 row.Name = opponent.Name;
-                row.CarBrand = _carModule.GetCarBrand(driver.CarId, opponent.CarName); ;
-                row.CountryCode = _flairModule.GetCountryCode(driver.FlairId);
-                row.OutLap = driver.OutLap;
+                row.CarBrand = mCarModule.GetCarBrand(driver.CarId, opponent.CarName); ;
                 row.iRating = (int)(opponent.IRacing_IRating ?? 0);
-                row.iRatingChange = driver.IRatingChange;
                 (row.License, row.SafetyRating) = DriverModule.ParseLicenseString(opponent.LicenceString);
-                row.GapToPlayer = opponent.RelativeGapToPlayer ?? 0;
+                row.CountryCode = mFlairModule.GetCountryCode(driver.FlairId);
                 row.GapToPlayerCombined = opponent.GapToPlayerCombined;
                 row.CurrentLapHighPrecision = opponent.CurrentLapHighPrecision ?? 0;
+                row.GapToPlayer = opponent.RelativeGapToPlayer ?? 0;
+                row.OutLap = driver.OutLap;
+                row.iRatingChange = driver.IRatingChange;
+                row.InsaneGapToPlayer = driver.GapToPlayer;
+                row.PlayerGainTime = driver.PlayerGainTime;
                 row.LastLapTime = driver.LastLapTime;
                 row.SessionFlags = driver.SessionFlags;
+                row.IsInPit = driver.IsInPit;
             }
         }
 
         public override void End(PluginManager pluginManager, InsanePlugin plugin)
         {
-            plugin.SaveCommonSettings("RelativeSettings", Settings);
         }
 
         public void BlankRow(RelativeRow row)
@@ -207,14 +217,12 @@ namespace InsanePlugin
             row.License = string.Empty;
             row.SafetyRating = 0;
             row.GapToPlayer = 0;
+            row.InsaneGapToPlayer = 0;
             row.GapToPlayerCombined = string.Empty;
             row.CurrentLapHighPrecision = 0;
             row.LastLapTime = TimeSpan.Zero;
             row.SessionFlags = 0;
-        }
-        public bool IsValidRow(Opponent opponent)
-        {
-            return true;
+            row.IsInPit = false;
         }
     }
 }

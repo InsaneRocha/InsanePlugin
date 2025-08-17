@@ -13,7 +13,6 @@ namespace InsanePlugin
     {
         public int HeaderWidth { get; set; } = 10;
         public int Width { get; set; } = 80;
-        public bool HideInReplay { get; set; } = true;
         public bool HeaderVisible { get; set; } = true;
         public bool CarClassHeaderVisible { get; set; } = true;
         public int LeadFocusedRows { get; set; } = 3;
@@ -22,7 +21,6 @@ namespace InsanePlugin
         public bool PositionChangeVisible { get; set; } = true;
         public bool CountryFlagVisible { get; set; } = true;
         public bool CarLogoVisible { get; set; } = true;
-        public bool SafetyRatingVisible { get; set; } = true;
         public bool IRatingVisible { get; set; } = true;
         public bool IRatingChangeVisible { get; set; } = true;
         public bool CarLogoVisibleInRace { get; set; } = true;
@@ -37,7 +35,6 @@ namespace InsanePlugin
         public bool InvertDeltaToPlayer { get; set; } = false;
         public bool ShowStintLapInRace { get; set; } = true;
         public int AlternateRowBackgroundColor { get; set; } = 5;
-        public bool HighlightPlayerRow { get; set; } = true;
         public int HeaderOpacity { get; set; } = 90;
         public int BackgroundOpacity { get; set; } = 7;
     }
@@ -160,14 +157,12 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: $"Standings.TotalDriverCount", valueProvider: () => TotalDriverCount);
             plugin.AttachDelegate(name: $"Standings.TotalSoF", valueProvider: () => TotalSoF);
             plugin.AttachDelegate(name: $"Standings.PlayerCarClassIdx", valueProvider: () => HighlightedCarClassIdx);
-            plugin.AttachDelegate(name: $"Standings.HideInReplay", valueProvider: () => Settings.HideInReplay);
             plugin.AttachDelegate(name: $"Standings.LeadFocusedRows", valueProvider: () => Settings.LeadFocusedRows);
             plugin.AttachDelegate(name: $"Standings.MaxRowsPlayerClass", valueProvider: () => Settings.MaxRowsPlayerClass);
             plugin.AttachDelegate(name: $"Standings.MaxRowsOtherClasses", valueProvider: () => Settings.MaxRowsOtherClasses);
             plugin.AttachDelegate(name: $"Standings.PositionChangeVisible", valueProvider: () => Settings.PositionChangeVisible);
             plugin.AttachDelegate(name: $"Standings.CountryFlagVisible", valueProvider: () => Settings.CountryFlagVisible);
             plugin.AttachDelegate(name: $"Standings.CarLogoVisible", valueProvider: () => CarLogoVisible);
-            plugin.AttachDelegate(name: $"Standings.SafetyRatingVisible", valueProvider: () => Settings.SafetyRatingVisible);
             plugin.AttachDelegate(name: $"Standings.iRatingVisible", valueProvider: () => Settings.IRatingVisible);
             plugin.AttachDelegate(name: $"Standings.iRatingChangeVisible", valueProvider: () => Settings.IRatingChangeVisible);
             plugin.AttachDelegate(name: $"Standings.GapVisible", valueProvider: () => GapVisible);
@@ -177,7 +172,6 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: $"Standings.UseDeltaToPlayer", valueProvider: () => Settings.UseDeltaToPlayer);
             plugin.AttachDelegate(name: $"Standings.ShowStintLapInRace", valueProvider: () => Settings.ShowStintLapInRace);
             plugin.AttachDelegate(name: "Standings.AlternateRowBackgroundColor", valueProvider: () => Settings.AlternateRowBackgroundColor);
-            plugin.AttachDelegate(name: "Standings.HighlightPlayerRow", valueProvider: () => Settings.HighlightPlayerRow);
             plugin.AttachDelegate(name: "Standings.HeaderOpacity", valueProvider: () => Settings.HeaderOpacity);
             plugin.AttachDelegate(name: "Standings.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
 
@@ -551,17 +545,8 @@ namespace InsanePlugin
 
         public (Driver, int) FindHighlightedDriver(ref GameData data)
         {
-            int highlightedCarIdx = -1;
+            int highlightedCarIdx = _driverModule.PlayerCarIdx;
             Driver highlightedDriver = null;
-
-            if (_driverModule.HighlightedDriver.CarIdx >= 0)
-            {
-                highlightedCarIdx = _driverModule.HighlightedDriver.CarIdx;
-            }
-            else
-            {
-                highlightedCarIdx = _driverModule.PlayerCarIdx;
-            }
 
             _driverModule.DriversByCarIdx.TryGetValue(highlightedCarIdx, out highlightedDriver);           
 
