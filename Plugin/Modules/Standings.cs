@@ -16,10 +16,10 @@ namespace InsanePlugin
         public int LeadFocusedRows { get; set; } = 3;
         public int MaxRowsOtherClasses { get; set; } = 3;
         public int MaxRowsPlayerClass { get; set; } = 10;
-        public bool PositionChangeVisible { get; set; } = true;
         public bool CountryFlagVisible { get; set; } = true;
         public bool CarLogoVisible { get; set; } = true;
         public bool IRatingVisible { get; set; } = true;
+        public bool SafetyRatingVisible { get; set; } = true;
         public bool IRatingChangeVisible { get; set; } = true;
         public bool CarLogoVisibleInRace { get; set; } = true;
         public bool GapVisibleInRace { get; set; } = true;
@@ -32,7 +32,6 @@ namespace InsanePlugin
         public bool UseDeltaToPlayer { get; set; } = false;
         public bool InvertDeltaToPlayer { get; set; } = false;
         public bool ShowStintLapInRace { get; set; } = true;
-        public int AlternateRowBackgroundColor { get; set; } = 5;
         public int BackgroundOpacity { get; set; } = 60;
     }
 
@@ -155,10 +154,10 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: $"Standings.LeadFocusedRows", valueProvider: () => Settings.LeadFocusedRows);
             plugin.AttachDelegate(name: $"Standings.MaxRowsPlayerClass", valueProvider: () => Settings.MaxRowsPlayerClass);
             plugin.AttachDelegate(name: $"Standings.MaxRowsOtherClasses", valueProvider: () => Settings.MaxRowsOtherClasses);
-            plugin.AttachDelegate(name: $"Standings.PositionChangeVisible", valueProvider: () => Settings.PositionChangeVisible);
             plugin.AttachDelegate(name: $"Standings.CountryFlagVisible", valueProvider: () => Settings.CountryFlagVisible);
             plugin.AttachDelegate(name: $"Standings.CarLogoVisible", valueProvider: () => CarLogoVisible);
             plugin.AttachDelegate(name: $"Standings.iRatingVisible", valueProvider: () => Settings.IRatingVisible);
+            plugin.AttachDelegate(name: $"Standings.SafetyRatingVisible", valueProvider: () => Settings.SafetyRatingVisible);
             plugin.AttachDelegate(name: $"Standings.iRatingChangeVisible", valueProvider: () => Settings.IRatingChangeVisible);
             plugin.AttachDelegate(name: $"Standings.GapVisible", valueProvider: () => GapVisible);
             plugin.AttachDelegate(name: $"Standings.BestVisible", valueProvider: () => BestVisible);
@@ -166,7 +165,6 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: $"Standings.DeltaVisible", valueProvider: () => DeltaVisible);
             plugin.AttachDelegate(name: $"Standings.UseDeltaToPlayer", valueProvider: () => Settings.UseDeltaToPlayer);
             plugin.AttachDelegate(name: $"Standings.ShowStintLapInRace", valueProvider: () => Settings.ShowStintLapInRace);
-            plugin.AttachDelegate(name: "Standings.AlternateRowBackgroundColor", valueProvider: () => Settings.AlternateRowBackgroundColor);
             plugin.AttachDelegate(name: "Standings.BackgroundOpacity", valueProvider: () => Settings.BackgroundOpacity);
 
             for (int carClassIdx = 0; carClassIdx < MaxCarClasses; carClassIdx++)

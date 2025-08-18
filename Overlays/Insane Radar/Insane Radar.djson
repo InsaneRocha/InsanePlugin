@@ -5,7 +5,7 @@
   "DashboardDebugManager": {
     "WindowPositionSettings": {
       "IsFullScreen": false,
-      "Position": "583,128,800,172",
+      "Position": "1949,107,800,172",
       "TopMost": false,
       "AllowTransparency": true,
       "CloseOnMonitorLoss": false,
@@ -13,7 +13,7 @@
     }
   },
   "Version": 2,
-  "Id": "37b89660-c8d7-424e-affc-78c564163dff",
+  "Id": "5c34c8ca-e5a2-4c52-93d2-0e84e4ea683e",
   "BaseHeight": 150,
   "BaseWidth": 700,
   "BackgroundColor": "#FF000000",
@@ -125,7 +125,7 @@
                       "Bindings": {
                         "Left": {
                           "Formula": {
-                            "Expression": "323+\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
+                            "Expression": "323+\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=19\r\n,0\r\n,max(19-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
                           },
                           "Mode": 2
                         }
@@ -148,13 +148,13 @@
                       "Bindings": {
                         "Left": {
                           "Formula": {
-                            "Expression": "323+\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
+                            "Expression": "323+\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=19\r\n,0\r\n,max(19-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
                           },
                           "Mode": 2
                         },
                         "Opacity": {
                           "Formula": {
-                            "Expression": "if(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*6.66\r\n)"
+                            "Expression": "if(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=19\r\n,0\r\n,max(19-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*6.66\r\n)"
                           },
                           "Mode": 2
                         }
@@ -189,7 +189,7 @@
                       "Bindings": {
                         "Left": {
                           "Formula": {
-                            "Expression": "323-\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*36\r\n)"
+                            "Expression": "323-\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=19\r\n,0\r\n,max(19-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
                           },
                           "Mode": 2
                         }
@@ -212,13 +212,13 @@
                       "Bindings": {
                         "Left": {
                           "Formula": {
-                            "Expression": "323-\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*36\r\n)"
+                            "Expression": "323-\r\nif(\r\nmax([InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)>=19\r\n,0\r\n,max(19-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*14\r\n)"
                           },
                           "Mode": 2
                         },
                         "Opacity": {
                           "Formula": {
-                            "Expression": "if(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=9\r\n,0\r\n,max(9-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*6.66\r\n)"
+                            "Expression": "if(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=19\r\n,0\r\n,max(19-[InsanePlugin.Relative.Behind.DistanceToPlayer.0],0)*6.66\r\n)"
                           },
                           "Mode": 2
                         }
@@ -240,7 +240,7 @@
               "Bindings": {
                 "Visible": {
                   "Formula": {
-                    "Expression": "![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<9\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>2"
+                    "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<19\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>4"
                   },
                   "Mode": 2
                 }
@@ -279,7 +279,7 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4)\r\nor\r\n(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4)"
                       },
                       "Mode": 2
                     }
@@ -302,13 +302,13 @@
                   "Bindings": {
                     "Top": {
                       "Formula": {
-                        "Expression": "93\r\n-\r\nif(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=2\r\n,0\r\n,(2-[InsanePlugin.Relative.Behind.DistanceToPlayer.0])*14\r\n)"
+                        "Expression": "93\r\n-\r\nif(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=4\r\n,0\r\n,(4-[InsanePlugin.Relative.Behind.DistanceToPlayer.0])*5\r\n)"
                       },
                       "Mode": 2
                     },
                     "Visible": {
                       "Formula": {
-                        "Expression": "![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2"
+                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4"
                       },
                       "Mode": 2
                     }
@@ -342,7 +342,7 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4)\r\nor\r\n(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4)"
                       },
                       "Mode": 2
                     }
@@ -365,13 +365,13 @@
                   "Bindings": {
                     "Top": {
                       "Formula": {
-                        "Expression": "28\r\n+\r\nif(\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]<=-2\r\n,0\r\n,([InsanePlugin.Relative.Ahead.DistanceToPlayer.0])*14\r\n)"
+                        "Expression": "28\r\n+\r\nif(\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]<=-4\r\n,0\r\n,([InsanePlugin.Relative.Ahead.DistanceToPlayer.0])*5\r\n)"
                       },
                       "Mode": 2
                     },
                     "Visible": {
                       "Formula": {
-                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2"
+                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4"
                       },
                       "Mode": 2
                     }
@@ -405,7 +405,7 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4)\r\nor\r\n(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4)"
                       },
                       "Mode": 2
                     }
@@ -420,7 +420,7 @@
               "Bindings": {
                 "Visible": {
                   "Formula": {
-                    "Expression": "in(isnull([DataCorePlugin.GameRawData.Telemetry.CarLeftRight],1),1,2,4,5)"
+                    "Expression": "in(isnull([DataCorePlugin.GameRawData.Telemetry.CarLeftRight],1),1,2,4,5)\r\nin(isnull([DataCorePlugin.GameRawData.Telemetry.CarLeftRight],1),1,3,4,6)"
                   },
                   "Mode": 2
                 }
@@ -459,7 +459,7 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4)\r\nor\r\n(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4)"
                       },
                       "Mode": 2
                     }
@@ -482,13 +482,13 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<=2"
+                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<=4"
                       },
                       "Mode": 2
                     },
                     "Top": {
                       "Formula": {
-                        "Expression": "93\r\n-\r\nif(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=2\r\n,0\r\n,(2-[InsanePlugin.Relative.Behind.DistanceToPlayer.0])*14\r\n)"
+                        "Expression": "93\r\n-\r\nif(\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]>=4\r\n,0\r\n,(4-[InsanePlugin.Relative.Behind.DistanceToPlayer.0])*5\r\n)"
                       },
                       "Mode": 2
                     }
@@ -522,7 +522,7 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4)\r\nor\r\n(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4)"
                       },
                       "Mode": 2
                     }
@@ -545,13 +545,13 @@
                   "Bindings": {
                     "Top": {
                       "Formula": {
-                        "Expression": "28\r\n+\r\nif(\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]<=-2\r\n,0\r\n,([InsanePlugin.Relative.Ahead.DistanceToPlayer.0])*14\r\n)"
+                        "Expression": "28\r\n+\r\nif(\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]<=-4\r\n,0\r\n,([InsanePlugin.Relative.Ahead.DistanceToPlayer.0])*5\r\n)"
                       },
                       "Mode": 2
                     },
                     "Visible": {
                       "Formula": {
-                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>-2"
+                        "Expression": "![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>-4"
                       },
                       "Mode": 2
                     }
@@ -585,7 +585,7 @@
                   "Bindings": {
                     "Visible": {
                       "Formula": {
-                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-2)\r\nor\r\n(![InsanePlugin.Relative.Behind.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<2)"
+                        "Expression": "(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Ahead.DistanceToPlayer.0]>=-4)\r\nor\r\n(![InsanePlugin.Relative.Ahead.IsInPit.0]\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]!=0\r\nand\r\n[InsanePlugin.Relative.Behind.DistanceToPlayer.0]<4)"
                       },
                       "Mode": 2
                     }
@@ -611,15 +611,7 @@
           "BlinkPhasisInverted": false,
           "Name": "Dots",
           "RenderingSkip": 0,
-          "MinimumRefreshIntervalMS": 0.0,
-          "Bindings": {
-            "Visible": {
-              "Formula": {
-                "Expression": "(isnull([DataCorePlugin.GameRawData.Telemetry.IsReplayPlaying],0)='False')"
-              },
-              "Mode": 2
-            }
-          }
+          "MinimumRefreshIntervalMS": 0.0
         }
       ],
       "MinimumRefreshIntervalMS": 0.0
@@ -687,7 +679,7 @@
     "PitScreensIndexs": [],
     "SimHubVersion": "9.9.3",
     "Category": "RSC",
-    "Title": "1 Insane Radar",
+    "Title": "Insane Radar",
     "Description": "",
     "Author": "InsaneRocha",
     "Width": 700.0,

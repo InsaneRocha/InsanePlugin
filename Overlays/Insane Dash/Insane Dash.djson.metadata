@@ -13,11 +13,11 @@
   "EnableOnDashboardMessaging": true,
   "PitScreensIndexs": [],
   "SimHubVersion": "9.9.3",
-  "Category": null,
-  "Title": "Insane Standings",
-  "Description": null,
+  "Category": "MP4-30",
+  "Title": "Insane Dash",
+  "Description": "",
   "Author": "InsaneRocha",
-  "Width": 592.0,
-  "Height": 695.0,
+  "Width": 582.0,
+  "Height": 230.0,
   "DashboardVersion": ""
 }

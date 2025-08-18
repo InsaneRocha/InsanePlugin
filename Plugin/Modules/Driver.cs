@@ -146,6 +146,7 @@ namespace InsanePlugin
         public int PlayerIRatingChange { get; set; } = 0;
         public double ResultsAverageLapTime { get; set; } = -1;
         public double InsaneAverageLapTime { get; set; } = -1;
+        public double DistanceToFinish { get; set; } = -1;
 
         public List<ClassLeaderboard> LiveClassLeaderboards { get; private set; } = new List<ClassLeaderboard>();
 
@@ -172,6 +173,7 @@ namespace InsanePlugin
             plugin.AttachDelegate(name: "Player.TeamIncidentCount", valueProvider: () => PlayerTeamIncidentCount);
             plugin.AttachDelegate(name: "Player.iRatingChange", valueProvider: () => PlayerIRatingChange);
             plugin.AttachDelegate(name: "Player.IsInPit", valueProvider: () => IsInPit);
+            plugin.AttachDelegate(name: "Player.DistanceToFinish", valueProvider: () => DistanceToFinish);
         }
 
         public override void DataUpdate(PluginManager pluginManager, InsanePlugin plugin, ref GameData data)
@@ -206,6 +208,7 @@ namespace InsanePlugin
                 PlayerTeamIncidentCount = 0;
                 PlayerIRatingChange = 0;
                 IsInPit = false;
+                DistanceToFinish = 0;
                 mQualResultsUpdated = false;
             }
 
@@ -388,6 +391,7 @@ namespace InsanePlugin
                     PlayerCurrentLap = opponent.CurrentLap ?? 0;
                     PlayerTeamIncidentCount = driver.TeamIncidentCount;
 
+
                     if (mSessionModule.Race)
                     {
                         PlayerHadWhiteFlag = PlayerHadWhiteFlag || data.NewData.Flag_White == 1;
@@ -506,7 +510,7 @@ namespace InsanePlugin
             PlayerCarIdx = playerCarIdx;
 
             double trackLength = 0;
-            try { trackLength = (double)raw.Telemetry["LapDist"]; } catch { Debug.Assert(false); }
+            try { trackLength = (double)data.NewData.TrackLength; } catch { Debug.Assert(false); }
 
             int driverCount = 0;
             try { driverCount = (int)raw.AllSessionData["DriverInfo"]["Drivers"].Count; } catch { Debug.Assert(false); }
@@ -596,6 +600,8 @@ namespace InsanePlugin
             Driver player = null;
             if (DriversByCarIdx.TryGetValue(PlayerCarIdx, out player))
             {
+                DistanceToFinish = trackLength - (player.LapDistPct * trackLength);
+
                 for (int i = 0; i < driverCount; i++)
                 {
                     int carIdx = -1;

@@ -34,8 +34,15 @@
                         <StackPanel Orientation="Horizontal">
 
                             <styles:SHToggleCheckbox 
+                                ToolTip="Show the driver's Safety Rating" 
+                                HorizontalAlignment="Left" Margin="0,0,4,8"
+                                IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.SafetyRatingVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                Show Safety Rating
+                            </styles:SHToggleCheckbox>
+
+                            <styles:SHToggleCheckbox 
                                 ToolTip="Show the driver's iRating" 
-                                HorizontalAlignment="Left" Margin="4,0,4,8"
+                                HorizontalAlignment="Left" Margin="0,0,4,8"
                                 IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.IRatingVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 Show iRating
                             </styles:SHToggleCheckbox>
@@ -47,13 +54,6 @@
                                 Show iRating gain/loss in race
                             </styles:SHToggleCheckbox>
                         </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Show the number of positions gained or lost in a race" 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[StandingsModule].Settings.PositionChangeVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Show position gain/loss in race
-                        </styles:SHToggleCheckbox>
 
                         <StackPanel Orientation="Horizontal">
                             <styles:SHToggleCheckbox 
@@ -164,114 +164,12 @@
                         <StackPanel Orientation="Horizontal">
                             <ui:TitledSlider MinWidth="400" Title="Max Row Count (Other Classes)" Maximum="5" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.MaxRowsOtherClasses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             ToolTip="Maximum number of visible rows in the Standings leaderboard for other classes"/>
-
-                            <ui:TitledSlider MinWidth="400" Title="Alternate row background color (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.AlternateRowBackgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            ToolTip="Use a different background color to make alternate rows easier to read. 100% for maximum contrast, 0% to disable."/>
+                            <ui:TitledSlider Width="400" Title="Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Width (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ui:TitledSlider Width="400" Title="Background Opacity (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[StandingsModule].Settings.BackgroundOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
-                    </StackPanel>
-                </styles:SHSection>
-
-                <styles:SHSection Title="SPOTTER OVERLAY OPTIONS" ShowSeparator="True">
-                    <StackPanel HorizontalAlignment="Left">
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Enable the Spotter overlay that shows orange bars when the iRacing spotter is calling a car left/right." 
-                            HorizontalAlignment="Left" Margin="0,0,4,8"
-                            IsChecked="{Binding Plugin.Modules[SpotterModule].Settings.Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Enable Spotter
-                        </styles:SHToggleCheckbox>
-
-                        <Label Content="Spotter Threshold" Margin="0,0,0,0"/>
-
-                        <TextBox Text="{Binding Plugin.Modules[SpotterModule].Settings.DistanceThreshold.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                 ToolTip="Distance from another car at which the Spotter's orange bars will show. Also used for showing Blind Spot Monitor.">
-                            <!-- Style to highlight invalid input -->
-                            <TextBox.Style>
-                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Plugin.Modules[SpotterModule].Settings.DistanceThreshold.Valid}" Value="False">
-                                            <Setter Property="Background" Value="LightCoral"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Spotter Bar Height" Maximum="129" Minimum="50" Value="{Binding Plugin.Modules[SpotterModule].Settings.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" 
-                                             ToolTip="Height of the Spotter's orange bars"/>
-
-                            <ui:TitledSlider Width="400" Title="Spotter Bar Min Height" Maximum="25" Minimum="0" Value="{Binding Plugin.Modules[SpotterModule].Settings.MinHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" 
-                                             ToolTip="Minimum height of the spotter's orange bar so it's easier to notice (0 to disable)"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Spotter Bar Width" Maximum="30" Minimum="10" Value="{Binding Plugin.Modules[SpotterModule].Settings.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" 
-                                             ToolTip="Width of the Spotter's orange bars"/>
-
-                            <ui:TitledSlider Width="400" Title="Spotter Bar Border" Maximum="3" Minimum="0" Value="{Binding Plugin.Modules[SpotterModule].Settings.Border, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" 
-                                             ToolTip="Thickness of the Spotter's border"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Spotter Bar Spacing (%)" Maximum="100" Minimum="0" Value="{Binding Plugin.Modules[SpotterModule].Settings.Spacing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" 
-                                ToolTip="Distance between the Spotter's orange bars"/>
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Enable the Rejoin Helper that shows the gap with the next incomming car." 
-                            HorizontalAlignment="Left" Margin="0,10,4,8"
-                            IsChecked="{Binding Plugin.Modules[RejoinHelperModule].Settings.Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Enable Rejoin Helper
-                        </styles:SHToggleCheckbox>
-
-                        <Label Content="Rejoin Helper Min 'Clear' Gap (seconds)" Margin="0,10,0,0"/>
-
-                        <TextBox Text="{Binding Plugin.Modules[RejoinHelperModule].Settings.MinimumClearGap.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                 ToolTip="Minimum gap in seconds at which the Rejoin Helper will show the 'Clear'.">
-                            <!-- Style to highlight invalid input -->
-                            <TextBox.Style>
-                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Plugin.Modules[RejoinHelperModule].Settings.MinimumClearGap.Valid}" Value="False">
-                                            <Setter Property="Background" Value="LightCoral"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-
-                        <Label Content="Rejoin Helper Min 'Care' Gap (seconds)" Margin="0,10,0,0"/>
-
-                        <TextBox Text="{Binding Plugin.Modules[RejoinHelperModule].Settings.MinimumCareGap.ValueString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="113" HorizontalAlignment="Left"
-                                 ToolTip="Minimum gap in seconds at which the Rejoin Helper will show the 'Care'.">
-                            <!-- Style to highlight invalid input -->
-                            <TextBox.Style>
-                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Plugin.Modules[RejoinHelperModule].Settings.MinimumCareGap.Valid}" Value="False">
-                                            <Setter Property="Background" Value="LightCoral"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-
-                        <StackPanel Orientation="Horizontal">
-                            <ui:TitledSlider Width="400" Title="Rejoin Helper Min Speed (Km/h)" Maximum="60" Minimum="0" Value="{Binding Plugin.Modules[RejoinHelperModule].Settings.MinSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" 
-                                             ToolTip="Speed in Km/h below which the Rejoin Helper will trigger."/>
-                        </StackPanel>
-
-                        <styles:SHToggleCheckbox 
-                            ToolTip="Enable the Blind Spot Monitor that shows a yellow warning sign when cars overlap (iRacing does not specify left/right)." 
-                            HorizontalAlignment="Left" Margin="0,10,4,8"
-                            IsChecked="{Binding Plugin.Modules[BlindSpotMonitorModule].Settings.Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            Enable Blind Spot Monitor
-                        </styles:SHToggleCheckbox>
                     </StackPanel>
                 </styles:SHSection>
 
